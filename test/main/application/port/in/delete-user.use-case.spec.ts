@@ -1,7 +1,8 @@
 import { DeleteUserUseCase } from '@application/port/in/delete-user.use-case';
 import { DummyUserStorage } from '../out/dummy-user.storage';
+import { IdMother } from '@test/domain/id.mother';
 import { UserStorage } from '@application/port/out/user.storage';
-import { faker } from '@faker-js/faker';
+
 describe('Delete User Use Case', () => {
   let deleteUserUseCase: DeleteUserUseCase;
   let dummyUserStorage: UserStorage;
@@ -13,7 +14,7 @@ describe('Delete User Use Case', () => {
 
   it('should delete user', () => {
     const spy = jest.spyOn(DummyUserStorage.prototype, 'delete');
-    const userId = faker.datatype.uuid();
+    const userId = IdMother.random();
 
     deleteUserUseCase.execute(userId);
 
