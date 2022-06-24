@@ -34,16 +34,11 @@ describe('Create Schedule Use Case', () => {
   it('should throw error if user does not exist', async () => {
     const userId = IdMother.random();
     const createScheduleDTO = CreateScheduleDTOMother(userId);
-    jest
-      .spyOn(DummyUserStorage.prototype, 'getById')
-      .mockImplementation(() => Promise.resolve(null));
+    jest.spyOn(DummyUserStorage.prototype, 'getById').mockResolvedValue(null);
 
-    try {
-      await createScheduleUseCase.execute(createScheduleDTO);
-    } catch (error: any) {
-      expect(error instanceof UserNotFound).toBeTruthy();
-      expect(error.message).toBe(`User not found with id: ${userId}`);
-    }
+    await expect(
+      createScheduleUseCase.execute(createScheduleDTO),
+    ).rejects.toEqual(new UserNotFound(userId));
   });
 
   it('should create schedule', async () => {
@@ -52,7 +47,8 @@ describe('Create Schedule Use Case', () => {
     const createScheduleDTO = CreateScheduleDTOMother(user.getId());
     const spyUser = jest
       .spyOn(DummyUserStorage.prototype, 'getById')
-      .mockImplementation(() => Promise.resolve(user));
+      .mockResolvedValue(user);
+
     const spySchedule = jest.spyOn(DummyScheduleStorage.prototype, 'create');
     jest
       .spyOn(DummyScheduleStorage.prototype, 'getNextId')

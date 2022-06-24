@@ -4,13 +4,13 @@ import { Schedule } from '@domain/schedule/schedule';
 export interface ScheduleStorage {
   getNextId(): string;
 
-  create(schedule: Schedule): void;
+  create(schedule: Schedule): Promise<void>;
 
   getById(scheduleId: string): Promise<Nullable<Schedule>>;
 
   search(userId: string, from: Date, to: Date): Promise<Schedule[]>;
 
-  edit(schedule: Schedule): void;
+  edit(schedule: Schedule): Promise<void>;
 
-  delete(id: string): void;
+  delete(id: string): Promise<void>;
 }

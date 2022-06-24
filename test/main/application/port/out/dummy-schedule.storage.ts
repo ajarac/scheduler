@@ -8,10 +8,16 @@ export class DummyScheduleStorage implements ScheduleStorage {
   getNextId(): string {
     return '';
   }
-  create(): void {}
+  create(): Promise<void> {
+    return Promise.resolve();
+  }
   search(): Promise<Schedule[]> {
     return Promise.resolve([]);
   }
-  edit(): void {}
-  delete(): void {}
+  edit(): Promise<void> {
+    return Promise.resolve();
+  }
+  delete(): Promise<void> {
+    return Promise.resolve();
+  }
 }

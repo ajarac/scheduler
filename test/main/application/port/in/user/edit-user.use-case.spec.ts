@@ -26,19 +26,27 @@ describe('Edit User Use Case', () => {
     jest.clearAllMocks();
   });
 
+  it('should throw error if editing ocurr any error', async () => {
+    const user = UserMother.random();
+    const editUserDTO = EditUserDTOMother();
+    jest.spyOn(DummyUserStorage.prototype, 'getById').mockResolvedValue(user);
+    jest
+      .spyOn(DummyUserStorage.prototype, 'edit')
+      .mockRejectedValue(new Error('error in storage'));
+
+    await expect(
+      editUserUseCase.execute(user.getId(), editUserDTO),
+    ).rejects.toEqual(new Error('error in storage'));
+  });
+
   it('should throw user not found if there is not user with userId', async () => {
     const userId = IdMother.random();
-    jest
-      .spyOn(DummyUserStorage.prototype, 'getById')
-      .mockImplementation(() => Promise.resolve(null));
     const editUserDTO = EditUserDTOMother();
+    jest.spyOn(DummyUserStorage.prototype, 'getById').mockResolvedValue(null);
 
-    try {
-      await editUserUseCase.execute(userId, editUserDTO);
-    } catch (error: any) {
-      expect(error instanceof UserNotFound).toBeTruthy();
-      expect(error.message).toBe(`User not found with id: ${userId}`);
-    }
+    await expect(editUserUseCase.execute(userId, editUserDTO)).rejects.toEqual(
+      new UserNotFound(userId),
+    );
   });
 
   it('should update user', async () => {
@@ -48,7 +56,9 @@ describe('Edit User Use Case', () => {
     const spyGetById = jest
       .spyOn(DummyUserStorage.prototype, 'getById')
       .mockImplementation(() => Promise.resolve(user));
-    const spyEdit = jest.spyOn(DummyUserStorage.prototype, 'edit');
+    const spyEdit = jest
+      .spyOn(DummyUserStorage.prototype, 'edit')
+      .mockResolvedValue(null);
 
     await editUserUseCase.execute(user.getId(), editUser);
 

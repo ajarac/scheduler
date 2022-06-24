@@ -13,7 +13,7 @@ export class EditScheduleUseCase {
       scheduleId,
       editScheduleDTO,
     );
-    this.storage.edit(schedule);
+    return this.storage.edit(schedule);
   }
   private async getScheduleAndUpdate(
     scheduleId: any,

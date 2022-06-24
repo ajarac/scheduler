@@ -9,11 +9,11 @@ export class CreateUserUseCase {
     private readonly hashProvider: HashProvider,
   ) {}
 
-  execute({ username, password, role }: CreateUserDTO): void {
+  execute({ username, password, role }: CreateUserDTO): Promise<void> {
     const id = this.storage.getNextId();
     const passwordHash = this.hashProvider.hash(password);
     const user = new User(id, username, passwordHash, role);
-    this.storage.create(user);
+    return this.storage.create(user);
   }
 }
 

@@ -12,7 +12,7 @@ export class EditUserUseCase {
 
   async execute(userId: string, editUserDTO: EditUserDTO): Promise<void> {
     const user = await this.getUserAndUpdate(userId, editUserDTO);
-    this.userStorage.edit(user);
+    return this.userStorage.edit(user);
   }
 
   private async getUserAndUpdate(

@@ -23,10 +23,27 @@ describe('Create User Use Case', () => {
     );
   });
 
-  it('should create user', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should throw error if creating ocurr any error', async () => {
+    const createUserDTO: CreateUserDTO = CreateUserDTOMother();
+    jest
+      .spyOn(DummyUserStorage.prototype, 'create')
+      .mockRejectedValue(new Error('error in storage'));
+
+    await expect(createUserUseCase.execute(createUserDTO)).rejects.toEqual(
+      new Error('error in storage'),
+    );
+  });
+
+  it('should create user', async () => {
     const createUserDTO: CreateUserDTO = CreateUserDTOMother();
     const userId = IdMother.random();
-    const spyCreate = jest.spyOn(DummyUserStorage.prototype, 'create');
+    const spyCreate = jest
+      .spyOn(DummyUserStorage.prototype, 'create')
+      .mockResolvedValue(null);
     const spyGetNextId = jest
       .spyOn(DummyUserStorage.prototype, 'getNextId')
       .mockImplementation(() => userId);
@@ -37,7 +54,7 @@ describe('Create User Use Case', () => {
       createUserDTO.role,
     );
 
-    createUserUseCase.execute(createUserDTO);
+    await createUserUseCase.execute(createUserDTO);
 
     expect(spyCreate).toBeCalledTimes(1);
     expect(spyCreate).toBeCalledWith(expectedToCall);

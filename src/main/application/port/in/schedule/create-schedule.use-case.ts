@@ -14,13 +14,13 @@ export class CreateScheduleUseCase {
     workDate,
     shiftHours,
   }: CreateScheduleDTO): Promise<void> {
-    const user = this.userStorage.getById(userId);
+    const user = await this.userStorage.getById(userId);
     if (user === null) {
-      throw new UserNotFound(userId);
+      return Promise.reject(new UserNotFound(userId));
     }
     const scheduleId = this.scheduleStorage.getNextId();
     const schedule = new Schedule(scheduleId, userId, workDate, shiftHours);
-    this.scheduleStorage.create(schedule);
+    return this.scheduleStorage.create(schedule);
   }
 }
 
