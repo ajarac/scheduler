@@ -6,7 +6,7 @@ export interface UserStorage {
 
   create(user: User): void;
 
-  getById(id: string): Nullable<User>;
+  getById(id: string): Promise<Nullable<User>>;
 
   edit(user: User): void;
 

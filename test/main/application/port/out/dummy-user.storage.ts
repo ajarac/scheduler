@@ -3,13 +3,13 @@ import { User } from 'src/main/domain/user/user';
 import { UserStorage } from '@application/port/out/user.storage';
 
 export class DummyUserStorage implements UserStorage {
-  create(user: User): void {}
+  create(): void {}
 
-  delete(id: string): void {}
+  delete(): void {}
 
-  edit(user: User): void {}
+  edit(): void {}
 
-  getById(id: string): Nullable<User> {
+  getById(): Promise<Nullable<User>> {
     return null;
   }
 

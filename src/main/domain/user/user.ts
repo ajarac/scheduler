@@ -18,4 +18,20 @@ export class User {
     this.password = password;
     this.role = role;
   }
+
+  getId(): string {
+    return this.id;
+  }
+
+  changePassword(password: string): void {
+    this.password = password;
+  }
+
+  updateUsername(username: string): void {
+    this.username = username;
+  }
+
+  updateRole(role: UserRole): void {
+    this.role = role;
+  }
 }
