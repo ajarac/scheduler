@@ -1,13 +1,28 @@
 export class Schedule {
   private readonly id: string;
-  private readonly workDate: Date;
   private readonly userId: string;
-  private readonly shiftHours: number;
+  private workDate: Date;
+  private shiftHours: number;
 
-  constructor(id: string, workDate: Date, userId: string, shiftHours: number) {
+  constructor(id: string, userId: string, workDate: Date, shiftHours: number) {
     this.id = id;
-    this.workDate = workDate;
     this.userId = userId;
+    this.workDate = workDate;
+    this.shiftHours = shiftHours;
+  }
+
+  getId(): string {
+    return this.id;
+  }
+  getUserId(): string {
+    return this.userId;
+  }
+
+  updateWorkDate(workDate: Date): void {
+    this.workDate = workDate;
+  }
+
+  updateShiftHours(shiftHours: number): void {
     this.shiftHours = shiftHours;
   }
 }

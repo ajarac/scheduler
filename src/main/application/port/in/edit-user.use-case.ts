@@ -10,15 +10,18 @@ export class EditUserUseCase {
     private readonly hashProvider: HashProvider,
   ) {}
 
-  async execute(editUserDTO: EditUserDTO): Promise<void> {
-    const user = await this.getUserAndUpdate(editUserDTO);
+  async execute(userId: string, editUserDTO: EditUserDTO): Promise<void> {
+    const user = await this.getUserAndUpdate(userId, editUserDTO);
     this.userStorage.edit(user);
   }
 
-  private async getUserAndUpdate(editUserDTO: EditUserDTO): Promise<User> {
-    const user = await this.getUserOrThrow(editUserDTO.id);
+  private async getUserAndUpdate(
+    userId: string,
+    editUserDTO: EditUserDTO,
+  ): Promise<User> {
+    const user = await this.getUserOrThrow(userId);
 
-    return this.updateUser(editUserDTO, user);
+    return this.updateUser(user, editUserDTO);
   }
 
   private async getUserOrThrow(userId: string) {
@@ -30,7 +33,7 @@ export class EditUserUseCase {
     return user;
   }
 
-  private updateUser(editUserDTO: EditUserDTO, user: User) {
+  private updateUser(user: User, editUserDTO: EditUserDTO) {
     if (editUserDTO.password != null) {
       const newPassword = this.hashProvider.hash(editUserDTO.password);
       user.changePassword(newPassword);
@@ -46,7 +49,6 @@ export class EditUserUseCase {
 }
 
 export interface EditUserDTO {
-  id: string;
   username?: string;
   password?: string;
   role?: UserRole;

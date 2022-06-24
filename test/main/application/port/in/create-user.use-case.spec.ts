@@ -7,9 +7,8 @@ import { DummyHashProvider } from '../out/dummy-hash.provider';
 import { DummyUserStorage } from '@test/application/port/out/dummy-user.storage';
 import { IdMother } from '@test/domain/id.mother';
 import { User } from '@domain/user/user';
-import { UserRole } from '@domain/user/user-role';
+import { UserMother } from '@test/domain/user.mother';
 import { UserStorage } from '@application/port/out/user.storage';
-import { faker } from '@faker-js/faker';
 
 describe('Create User Use Case', () => {
   let createUserUseCase: CreateUserUseCase;
@@ -48,8 +47,8 @@ describe('Create User Use Case', () => {
 
 function CreateUserDTOMother(): CreateUserDTO {
   return {
-    username: faker.internet.userName(),
-    password: faker.internet.password(),
-    role: faker.helpers.arrayElement([UserRole.ADMIN, UserRole.STAFF]),
+    username: UserMother.userName(),
+    password: UserMother.password(),
+    role: UserMother.role(),
   };
 }

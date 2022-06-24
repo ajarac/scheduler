@@ -19,7 +19,7 @@ export class CreateScheduleUseCase {
       throw new UserNotFound(userId);
     }
     const scheduleId = this.scheduleStorage.getNextId();
-    const schedule = new Schedule(scheduleId, workDate, userId, shiftHours);
+    const schedule = new Schedule(scheduleId, userId, workDate, shiftHours);
     this.scheduleStorage.create(schedule);
   }
 }

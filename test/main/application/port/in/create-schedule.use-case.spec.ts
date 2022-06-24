@@ -7,11 +7,11 @@ import { DummyScheduleStorage } from '../out/dummy-schedule.storage';
 import { DummyUserStorage } from '../out/dummy-user.storage';
 import { IdMother } from '@test/domain/id.mother';
 import { Schedule } from '@domain/schedule/schedule';
+import { ScheduleMother } from '@test/domain/schedule.mother';
 import { ScheduleStorage } from '@application/port/out/schedule.storage';
-import { UserMother } from '@test/domain/user/user.mother';
+import { UserMother } from '@test/domain/user.mother';
 import { UserNotFound } from '@domain/user/user-not-found';
 import { UserStorage } from '@application/port/out/user.storage';
-import { faker } from '@faker-js/faker';
 
 describe('Create Schedule Use Case', () => {
   let userStorage: UserStorage;
@@ -59,8 +59,8 @@ describe('Create Schedule Use Case', () => {
       .mockImplementation(() => scheduleId);
     const expectedToCall = new Schedule(
       scheduleId,
-      createScheduleDTO.workDate,
       createScheduleDTO.userId,
+      createScheduleDTO.workDate,
       createScheduleDTO.shiftHours,
     );
 
@@ -76,7 +76,7 @@ describe('Create Schedule Use Case', () => {
 function CreateScheduleDTOMother(userId: string): CreateScheduleDTO {
   return {
     userId,
-    workDate: faker.datatype.datetime(),
-    shiftHours: faker.datatype.number(5),
+    workDate: ScheduleMother.workDate(),
+    shiftHours: ScheduleMother.shiftHours(),
   };
 }

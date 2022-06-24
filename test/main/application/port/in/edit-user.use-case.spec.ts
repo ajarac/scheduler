@@ -7,11 +7,9 @@ import { DummyHashProvider } from '../out/dummy-hash.provider';
 import { DummyUserStorage } from '../out/dummy-user.storage';
 import { HashProvider } from '@application/port/out/hash.provider';
 import { IdMother } from '@test/domain/id.mother';
-import { UserMother } from '@test/domain/user/user.mother';
+import { UserMother } from '@test/domain/user.mother';
 import { UserNotFound } from '@domain/user/user-not-found';
-import { UserRole } from '@domain/user/user-role';
 import { UserStorage } from '@application/port/out/user.storage';
-import { faker } from '@faker-js/faker';
 
 describe('Edit User Use Case', () => {
   let editUserUseCase: EditUserUseCase;
@@ -33,10 +31,10 @@ describe('Edit User Use Case', () => {
     jest
       .spyOn(DummyUserStorage.prototype, 'getById')
       .mockImplementation(() => Promise.resolve(null));
-    const editUserDTO = EditUserDTOMother(userId);
+    const editUserDTO = EditUserDTOMother();
 
     try {
-      await editUserUseCase.execute(editUserDTO);
+      await editUserUseCase.execute(userId, editUserDTO);
     } catch (error: any) {
       expect(error instanceof UserNotFound).toBeTruthy();
       expect(error.message).toBe(`User not found with id: ${userId}`);
@@ -45,21 +43,21 @@ describe('Edit User Use Case', () => {
 
   it('should update user', async () => {
     const user = UserMother.random();
-    const editUser = EditUserDTOMother(user.getId());
+    const editUser = EditUserDTOMother();
     const spyHash = jest.spyOn(DummyHashProvider.prototype, 'hash');
     const spyGetById = jest
       .spyOn(DummyUserStorage.prototype, 'getById')
       .mockImplementation(() => Promise.resolve(user));
-    const spyCreate = jest.spyOn(DummyUserStorage.prototype, 'edit');
+    const spyEdit = jest.spyOn(DummyUserStorage.prototype, 'edit');
 
-    await editUserUseCase.execute(editUser);
+    await editUserUseCase.execute(user.getId(), editUser);
 
     expect(spyGetById).toBeCalledTimes(1);
     expect(spyGetById).toBeCalledWith(user.getId());
     expect(spyHash).toBeCalledTimes(1);
     expect(spyHash).toBeCalledWith(editUser.password);
-    expect(spyCreate).toBeCalledTimes(1);
-    expect(spyCreate).toBeCalledWith({
+    expect(spyEdit).toBeCalledTimes(1);
+    expect(spyEdit).toBeCalledWith({
       id: user.getId(),
       password: hashProvider.hash(editUser.password),
       username: editUser.username,
@@ -68,11 +66,10 @@ describe('Edit User Use Case', () => {
   });
 });
 
-function EditUserDTOMother(userId: string): EditUserDTO {
+function EditUserDTOMother(): EditUserDTO {
   return {
-    id: userId,
-    username: faker.internet.userName(),
-    password: faker.internet.password(),
-    role: faker.helpers.arrayElement([UserRole.ADMIN, UserRole.STAFF]),
+    username: UserMother.userName(),
+    password: UserMother.password(),
+    role: UserMother.role(),
   };
 }
