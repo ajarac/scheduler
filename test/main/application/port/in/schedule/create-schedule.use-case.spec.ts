@@ -1,10 +1,10 @@
 import {
   CreateScheduleDTO,
   CreateScheduleUseCase,
-} from '@application/port/in/create-schedule.use-case';
+} from '@application/port/in/schedule/create-schedule.use-case';
 
-import { DummyScheduleStorage } from '../out/dummy-schedule.storage';
-import { DummyUserStorage } from '../out/dummy-user.storage';
+import { DummyScheduleStorage } from '../../out/dummy-schedule.storage';
+import { DummyUserStorage } from '../../out/dummy-user.storage';
 import { IdMother } from '@test/domain/id.mother';
 import { Schedule } from '@domain/schedule/schedule';
 import { ScheduleMother } from '@test/domain/schedule.mother';

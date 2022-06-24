@@ -1,4 +1,4 @@
-import { HashProvider } from '../out/hash.provider';
+import { HashProvider } from '@application/port/out/hash.provider';
 import { User } from '@domain/user/user';
 import { UserRole } from '@domain/user/user-role';
 import { UserStorage } from '@application/port/out/user.storage';

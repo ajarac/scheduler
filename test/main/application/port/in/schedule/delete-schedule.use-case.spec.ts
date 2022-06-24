@@ -1,5 +1,5 @@
-import { DeleteScheduleUseCase } from '@application/port/in/delete-schedule.use-case';
-import { DummyScheduleStorage } from '../out/dummy-schedule.storage';
+import { DeleteScheduleUseCase } from '@application/port/in/schedule/delete-schedule.use-case';
+import { DummyScheduleStorage } from '../../out/dummy-schedule.storage';
 import { IdMother } from '@test/domain/id.mother';
 import { ScheduleStorage } from '@application/port/out/schedule.storage';
 

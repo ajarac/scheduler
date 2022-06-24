@@ -1,10 +1,10 @@
 import {
   EditUserDTO,
   EditUserUseCase,
-} from '@application/port/in/edit-user.use-case';
+} from '@application/port/in/user/edit-user.use-case';
 
-import { DummyHashProvider } from '../out/dummy-hash.provider';
-import { DummyUserStorage } from '../out/dummy-user.storage';
+import { DummyHashProvider } from '../../out/dummy-hash.provider';
+import { DummyUserStorage } from '../../out/dummy-user.storage';
 import { HashProvider } from '@application/port/out/hash.provider';
 import { IdMother } from '@test/domain/id.mother';
 import { UserMother } from '@test/domain/user.mother';

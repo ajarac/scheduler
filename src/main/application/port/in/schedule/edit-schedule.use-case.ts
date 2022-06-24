@@ -1,6 +1,6 @@
 import { Schedule } from '@domain/schedule/schedule';
 import { ScheduleNotFound } from '@domain/schedule/schedule-not-found';
-import { ScheduleStorage } from '../out/schedule.storage';
+import { ScheduleStorage } from '@application/port/out/schedule.storage';
 
 export class EditScheduleUseCase {
   constructor(private readonly storage: ScheduleStorage) {}

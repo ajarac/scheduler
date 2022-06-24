@@ -1,4 +1,4 @@
-import { UserStorage } from '../out/user.storage';
+import { UserStorage } from '@application/port/out/user.storage';
 
 export class DeleteUserUseCase {
   constructor(private readonly userStorage: UserStorage) {}

@@ -1,9 +1,9 @@
 import {
   EditScheduleDTO,
   EditScheduleUseCase,
-} from '@application/port/in/edit-schedule.use-case';
+} from '@application/port/in/schedule/edit-schedule.use-case';
 
-import { DummyScheduleStorage } from '../out/dummy-schedule.storage';
+import { DummyScheduleStorage } from '../../out/dummy-schedule.storage';
 import { IdMother } from '@test/domain/id.mother';
 import { ScheduleMother } from '@test/domain/schedule.mother';
 import { ScheduleNotFound } from '@domain/schedule/schedule-not-found';

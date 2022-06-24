@@ -1,9 +1,9 @@
 import {
   CreateUserDTO,
   CreateUserUseCase,
-} from '@application/port/in/create-user.use-case';
+} from '@application/port/in/user/create-user.use-case';
 
-import { DummyHashProvider } from '../out/dummy-hash.provider';
+import { DummyHashProvider } from '../../out/dummy-hash.provider';
 import { DummyUserStorage } from '@test/application/port/out/dummy-user.storage';
 import { IdMother } from '@test/domain/id.mother';
 import { User } from '@domain/user/user';

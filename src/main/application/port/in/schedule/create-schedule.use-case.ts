@@ -1,7 +1,7 @@
 import { Schedule } from '@domain/schedule/schedule';
-import { ScheduleStorage } from '../out/schedule.storage';
+import { ScheduleStorage } from '@application/port/out/schedule.storage';
 import { UserNotFound } from '@domain/user/user-not-found';
-import { UserStorage } from '../out/user.storage';
+import { UserStorage } from '@application/port/out/user.storage';
 
 export class CreateScheduleUseCase {
   constructor(

@@ -1,4 +1,4 @@
-import { ScheduleStorage } from '../out/schedule.storage';
+import { ScheduleStorage } from '@application/port/out/schedule.storage';
 
 export class DeleteScheduleUseCase {
   constructor(private readonly storage: ScheduleStorage) {}
