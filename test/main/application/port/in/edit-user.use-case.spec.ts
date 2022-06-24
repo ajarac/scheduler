@@ -30,9 +30,9 @@ describe('Edit User Use Case', () => {
 
   it('should throw user not found if there is not user with userId', async () => {
     const userId = IdMother.random();
-    jest.spyOn(DummyUserStorage.prototype, 'getById').mockImplementation(() => {
-      throw new UserNotFound(userId);
-    });
+    jest
+      .spyOn(DummyUserStorage.prototype, 'getById')
+      .mockImplementation(() => Promise.resolve(null));
     const editUserDTO = EditUserDTOMother(userId);
 
     try {
