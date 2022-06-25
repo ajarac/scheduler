@@ -23,6 +23,18 @@ export class User {
     return this.id;
   }
 
+  getUsername(): string {
+    return this.username;
+  }
+
+  getPassword(): string {
+    return this.password;
+  }
+
+  getRole(): UserRole {
+    return this.role;
+  }
+
   changePassword(password: string): void {
     this.password = password;
   }
