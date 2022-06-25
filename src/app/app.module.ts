@@ -8,7 +8,9 @@ import { PassportModule } from '@nestjs/passport';
 import { UserModule } from '@user/user.module';
 
 import { HealthController } from './controllers/health.controller';
-import { RegisterUserController } from './controllers/register-user.controller';
+import { DeleteUserController } from './controllers/user/delete-user.controller';
+import { EditUserController } from './controllers/user/edit-user.controller';
+import { RegisterUserController } from './controllers/user/register-user.controller';
 import { DatabaseModule } from './database/database.module';
 import { JwtAuthGuard } from './guards/jwt.guard';
 
@@ -22,7 +24,13 @@ import { JwtAuthGuard } from './guards/jwt.guard';
     }),
     UserModule,
   ],
-  controllers: [HealthController, LoginController, RegisterUserController],
+  controllers: [
+    HealthController,
+    LoginController,
+    RegisterUserController,
+    EditUserController,
+    DeleteUserController,
+  ],
   providers: [
     JwtStrategy,
     {

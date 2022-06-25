@@ -5,7 +5,7 @@ import {
 } from '@user/application/create-user.use-case';
 import { UserRole, UserRoleList } from 'src/main/user/domain/user-role';
 import { IsEnum, IsNotEmpty } from 'class-validator';
-import { Public } from '../guards/public.guard';
+import { Public } from '../../guards/public.guard';
 
 class RegisterUserDTO implements CreateUserDTO {
   @IsNotEmpty()
@@ -18,7 +18,7 @@ class RegisterUserDTO implements CreateUserDTO {
   role: UserRole;
 }
 
-@Controller('user/register')
+@Controller('users')
 export class RegisterUserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
 
