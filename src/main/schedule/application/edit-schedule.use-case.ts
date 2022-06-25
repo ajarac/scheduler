@@ -1,9 +1,16 @@
+import { Inject, Injectable } from '@nestjs/common';
 import { Schedule } from '@schedule/domain/schedule';
 import { ScheduleNotFound } from '@schedule/domain/schedule-not-found';
-import { ScheduleStorage } from '@schedule/domain/schedule.storage';
+import {
+  ScheduleStorage,
+  SCHEDULE_STORAGE_TOKEN,
+} from '@schedule/domain/schedule.storage';
 
+@Injectable()
 export class EditScheduleUseCase {
-  constructor(private readonly storage: ScheduleStorage) {}
+  constructor(
+    @Inject(SCHEDULE_STORAGE_TOKEN) private readonly storage: ScheduleStorage,
+  ) {}
 
   async execute(
     scheduleId: string,

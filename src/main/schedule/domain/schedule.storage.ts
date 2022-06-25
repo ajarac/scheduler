@@ -2,6 +2,8 @@ import { Nullable } from '@shared/types/nullable';
 
 import { Schedule } from './schedule';
 
+export const SCHEDULE_STORAGE_TOKEN = Symbol('SCHEDULE_STORAGE_TOKEN');
+
 export interface ScheduleStorage {
   getNextId(): string;
 

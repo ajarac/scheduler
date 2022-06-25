@@ -1,7 +1,14 @@
-import { ScheduleStorage } from '@schedule/domain/schedule.storage';
+import { Inject, Injectable } from '@nestjs/common';
+import {
+  ScheduleStorage,
+  SCHEDULE_STORAGE_TOKEN,
+} from '@schedule/domain/schedule.storage';
 
+@Injectable()
 export class DeleteScheduleUseCase {
-  constructor(private readonly storage: ScheduleStorage) {}
+  constructor(
+    @Inject(SCHEDULE_STORAGE_TOKEN) private readonly storage: ScheduleStorage,
+  ) {}
 
   execute(scheduleId: string): Promise<void> {
     return this.storage.delete(scheduleId);
