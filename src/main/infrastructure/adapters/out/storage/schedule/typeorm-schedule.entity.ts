@@ -1,18 +1,16 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-import { UserRole } from '@domain/user/user-role';
-
 @Entity()
-export class TypeormUser {
+export class ScheduleEntity {
   @PrimaryColumn()
   id: string;
 
   @Column()
-  username: string;
+  userId: string;
 
   @Column()
-  password: string;
+  workDate: Date;
 
   @Column()
-  role: UserRole;
+  shiftHours: number;
 }

@@ -1,9 +1,9 @@
-import { TypeormUser } from './typeorm-user.entity';
 import { User } from '@domain/user/user';
+import { UserEntity } from './typeorm-user.entity';
 
 export class TypeormUserMapper {
-  static fromDomain(user: User): TypeormUser {
-    const typeormUser = new TypeormUser();
+  static fromDomain(user: User): UserEntity {
+    const typeormUser = new UserEntity();
     typeormUser.id = user.getId();
     typeormUser.username = user.getUsername();
     typeormUser.password = user.getPassword();
@@ -11,7 +11,7 @@ export class TypeormUserMapper {
     return typeormUser;
   }
 
-  static toDomain(typeormUser: TypeormUser): User {
+  static toDomain(typeormUser: UserEntity): User {
     return new User(
       typeormUser.id,
       typeormUser.username,

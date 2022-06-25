@@ -18,6 +18,14 @@ export class Schedule {
     return this.userId;
   }
 
+  getWorkDate(): Date {
+    return this.workDate;
+  }
+
+  getShiftHours(): number {
+    return this.shiftHours;
+  }
+
   updateWorkDate(workDate: Date): void {
     this.workDate = workDate;
   }

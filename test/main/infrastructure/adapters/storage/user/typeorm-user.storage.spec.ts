@@ -3,23 +3,23 @@ import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
 import { IdMother } from '@test/domain/id.mother';
 import { Repository } from 'typeorm';
 import { Test } from '@nestjs/testing';
-import { TypeormUser } from '@infrastructure/adapters/storage/user/typeorm-user.entity';
-import { TypeormUserMapper } from '@infrastructure/adapters/storage/user/typeorm-user.mapper';
-import { TypeormUserStorage } from '@infrastructure/adapters/storage/user/typeorm-user.storage';
+import { TypeormUserMapper } from '@infrastructure/adapters/out/storage/user/typeorm-user.mapper';
+import { TypeormUserStorage } from '@infrastructure/adapters/out/storage/user/typeorm-user.storage';
+import { UserEntity } from '@infrastructure/adapters/out/storage/user/typeorm-user.entity';
 import { UserMother } from '@test/domain/user.mother';
 import { createTestConfiguration } from '../helper';
 
 describe('Typeorm User Storage', () => {
-  let repository: Repository<TypeormUser>;
+  let repository: Repository<UserEntity>;
   let userStorage: TypeormUserStorage;
 
-  const REPOSITORY_TOKEN = getRepositoryToken(TypeormUser);
+  const REPOSITORY_TOKEN = getRepositoryToken(UserEntity);
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [
-        TypeOrmModule.forRoot(createTestConfiguration([TypeormUser])),
-        TypeOrmModule.forFeature([TypeormUser]),
+        TypeOrmModule.forRoot(createTestConfiguration([UserEntity])),
+        TypeOrmModule.forFeature([UserEntity]),
       ],
       providers: [TypeormUserStorage],
     }).compile();
