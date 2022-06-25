@@ -1,6 +1,8 @@
 import { Nullable } from '@shared/types/nullable';
 import { User } from '@user/domain/user';
 
+export const USER_STORAGE_TOKEN = Symbol('USER_STORAGE_TOKEN');
+
 export interface UserStorage {
   getNextId(): string;
 

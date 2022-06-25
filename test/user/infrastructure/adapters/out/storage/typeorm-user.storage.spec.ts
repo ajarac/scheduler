@@ -3,9 +3,9 @@ import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
 import { IdMother } from '@test/shared/domain/id.mother';
 import { createTestConfiguration } from '@test/shared/infrastructure/storage/helper';
 import { UserMother } from '@test/user/domain/user.mother';
-import { UserEntity } from '@user/infrastructure/adapters/out/typeorm-user.entity';
-import { TypeormUserMapper } from '@user/infrastructure/adapters/out/typeorm-user.mapper';
-import { TypeormUserStorage } from '@user/infrastructure/adapters/out/typeorm-user.storage';
+import { UserEntity } from '@user/infrastructure/adapters/out/storage/typeorm-user.entity';
+import { TypeormUserMapper } from '@user/infrastructure/adapters/out/storage/typeorm-user.mapper';
+import { TypeormUserStorage } from '@user/infrastructure/adapters/out/storage/typeorm-user.storage';
 import { Repository } from 'typeorm';
 
 describe('Typeorm User Storage', () => {
