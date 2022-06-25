@@ -19,22 +19,25 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@user/*": [
-        "./src/user/*"
+        "src/main/user/*"
       ],
       "@schedule/*": [
-        "./src/schedule/*"
+        "src/main/schedule/*"
       ],
       "@shared/*": [
         "./src/shared/*"
       ],
       "@test/user/*": [
-        "./test/user/*"
+        "test/main/user/*"
       ],
       "@test/schedule/*": [
-        "./test/schedule/*"
+        "./test/main/schedule/*"
       ],
       "@test/shared/*": [
         "./test/shared/*"
+      ],
+      "@auth/*": [
+        "src/apps/auth/*"
       ]
     }
   }

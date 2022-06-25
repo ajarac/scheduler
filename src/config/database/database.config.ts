@@ -1,14 +1,14 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { ScheduleEntity } from '@schedule/storage/typeorm-schedule.entity';
-import { UserEntity } from '@user/infrastructure/adapters/out/storage/typeorm-user.entity';
+import { ScheduleEntity } from '@schedule/infrastructure/storage/typeorm-schedule.entity';
+import { UserEntity } from 'src/main/user/infrastructure/adapters/out/storage/typeorm-user.entity';
 
 export const DATABASE_CONFIG: TypeOrmModuleOptions = {
   type: 'mysql',
-  host: 'localhost',
-  port: 3306,
-  username: 'root',
-  password: 'root',
-  database: 'scheduler',
+  host: process.env.DB_HOST || 'localhost',
+  port: parseInt(process.env.DB_PORT) || 3306,
+  username: process.env.DB_USERNAME || 'mysql',
+  password: process.env.DB_PASSWORD || 'mysqlpassword',
+  database: process.env.DB_DATABASE || 'scheduler',
   entities: [UserEntity, ScheduleEntity],
   synchronize: true,
 };
