@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { UserAuth } from 'src/apps/auth/dto/user-auth.dto';
-import { HashProvider, HASH_PROVIDER_TOKEN } from '../out/hash.provider';
-import { UserStorage, USER_STORAGE_TOKEN } from '../out/user.storage';
+import { HASH_PROVIDER_TOKEN, HashProvider } from '@user/domain/hash.provider';
+import { User } from '@user/domain/user';
+import { USER_STORAGE_TOKEN, UserStorage } from '@user/domain/user.storage';
 
 @Injectable()
-export class AuthenticationUseCase {
+export class ValidateUserUseCase {
   constructor(
     @Inject(USER_STORAGE_TOKEN)
     private readonly storage: UserStorage,
@@ -12,7 +12,7 @@ export class AuthenticationUseCase {
     private readonly hashProvider: HashProvider,
   ) {}
 
-  async validate(username: string, password: string): Promise<UserAuth> {
+  async execute(username: string, password: string): Promise<User> {
     const user = await this.storage.getByUsername(username);
     if (user == null) {
       return null;
@@ -21,10 +21,6 @@ export class AuthenticationUseCase {
     if (hashPassword !== user.getPassword()) {
       return null;
     }
-    return {
-      id: user.getId(),
-      username: user.getUsername(),
-      role: user.getRole(),
-    };
+    return user;
   }
 }

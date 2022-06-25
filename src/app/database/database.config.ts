@@ -1,6 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ScheduleEntity } from '@schedule/infrastructure/storage/typeorm-schedule.entity';
-import { UserEntity } from 'src/main/user/infrastructure/adapters/out/storage/typeorm-user.entity';
+import { UserEntity } from '@user/infrastructure/storage/typeorm-user.entity';
 
 export const DATABASE_CONFIG: TypeOrmModuleOptions = {
   type: 'mysql',

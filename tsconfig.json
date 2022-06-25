@@ -37,7 +37,7 @@
         "./test/shared/*"
       ],
       "@auth/*": [
-        "src/apps/auth/*"
+        "src/app/auth/*"
       ]
     }
   }
