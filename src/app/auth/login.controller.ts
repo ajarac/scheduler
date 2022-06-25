@@ -1,6 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 
 import { IsNotEmpty } from 'class-validator';
+import { Public } from '../guards/public.guard';
 import { AuthenticationService } from './authentication.service';
 import { LoginToken } from './dto/login-token';
 
@@ -16,6 +17,7 @@ export class LoginController {
   constructor(private readonly authenticationService: AuthenticationService) {}
 
   @Post()
+  @Public()
   async login(
     @Body() { username, password }: Credentials,
   ): Promise<LoginToken> {
