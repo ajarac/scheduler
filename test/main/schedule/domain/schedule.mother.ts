@@ -3,17 +3,27 @@ import { Schedule } from '@schedule/domain/schedule';
 import { IdMother } from '@test/shared/domain/id.mother';
 
 export class ScheduleMother {
-  static random(): Schedule {
+  static randomList(size: number, userId: string = null): Schedule[] {
+    return new Array(size).fill(null).map(() => this.random(userId));
+  }
+
+  static random(userId: string = null): Schedule {
     return new Schedule(
       IdMother.random(),
-      IdMother.random(),
+      userId || IdMother.random(),
       this.workDate(),
       this.shiftHours(),
     );
   }
 
+  static yearAgo(): Date {
+    const yearAgo = new Date();
+    yearAgo.setFullYear(yearAgo.getFullYear() - 1);
+    return yearAgo;
+  }
+
   static workDate(): Date {
-    return faker.datatype.datetime();
+    return faker.date.between(this.yearAgo(), new Date());
   }
 
   static shiftHours(): number {

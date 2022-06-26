@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { ScheduleEntity } from './typeorm-schedule.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { TypeormScheduleMapper } from './typeorm-schedule.mapper';
 import { Schedule } from '@schedule/domain/schedule';
@@ -27,7 +27,9 @@ export class TypeormScheduleStorage implements ScheduleStorage {
     return entity != null ? TypeormScheduleMapper.toDomain(entity) : null;
   }
   async search(userId: string, from: Date, to: Date): Promise<Schedule[]> {
-    return [];
+    const query = { where: { userId, workDate: Between(from, to) } };
+    const entities = await this.scheduleRepository.find(query);
+    return entities.map(TypeormScheduleMapper.toDomain);
   }
   async edit(schedule: Schedule): Promise<void> {
     const entity = TypeormScheduleMapper.fromDomain(schedule);

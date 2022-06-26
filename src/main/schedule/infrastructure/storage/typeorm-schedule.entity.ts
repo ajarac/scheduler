@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class ScheduleEntity {
@@ -8,7 +8,7 @@ export class ScheduleEntity {
   @Column()
   userId: string;
 
-  @Column()
+  @CreateDateColumn()
   workDate: Date;
 
   @Column()

@@ -97,6 +97,24 @@ describe('Typeorm Schedule Storage', () => {
     });
   });
 
+  describe('search', () => {
+    it('should return from userId and range between from date and now', async () => {
+      const userId = IdMother.random();
+      const schedules = ScheduleMother.randomList(10, userId);
+      for (const schedule of schedules) {
+        await scheduleStorage.create(schedule);
+      }
+      const schedulesExpected = await scheduleStorage.search(
+        userId,
+        ScheduleMother.yearAgo(),
+        new Date(),
+      );
+
+      expect(schedulesExpected.length).toBe(10);
+      expect(schedulesExpected).toEqual(schedules);
+    });
+  });
+
   describe('edit', () => {
     it('should throw error if there is any issue editting the schedule', async () => {
       const schedule = ScheduleMother.random();
