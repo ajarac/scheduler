@@ -9,7 +9,7 @@ import {
 import {
   CreateScheduleDTO,
   CreateScheduleUseCase,
-} from '@schedule/application/create-schedule.use-case';
+} from '@application/in/create-schedule.use-case';
 import {
   IsDateString,
   IsNotEmpty,

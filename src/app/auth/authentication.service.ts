@@ -1,8 +1,8 @@
-import { UserAuth } from '@auth/dto/user-auth';
+import { UserAuth } from '@app/auth/dto/user-auth';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Nullable } from '@shared/types/nullable';
-import { ValidateUserUseCase } from '@user/application/validate-user.use-case';
+import { ValidateUserUseCase } from '@application/in/validate-user.use-case';
+import { Nullable } from 'src/main/shared/types/nullable';
 
 import { LoginToken } from './dto/login-token';
 

@@ -2,10 +2,10 @@ import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import {
   CreateUserUseCase,
   CreateUserDTO,
-} from '@user/application/create-user.use-case';
-import { UserRole, UserRoleList } from 'src/main/user/domain/user-role';
+} from '@application/in/create-user.use-case';
+import { UserRole, UserRoleList } from 'src/main/domain/user/user-role';
 import { IsEnum, IsNotEmpty } from 'class-validator';
-import { Public } from '../../guards/public.guard';
+import { Public } from '@app/guards/public.guard';
 
 class RegisterUserDTO implements CreateUserDTO {
   @IsNotEmpty()

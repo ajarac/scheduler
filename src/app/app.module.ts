@@ -1,17 +1,18 @@
-import { AuthenticationService } from '@auth/authentication.service';
-import { LoginController } from '@auth/login.controller';
-import { JwtStrategy } from '@auth/strategies/jwt.strategy';
+import { AuthenticationService } from '@app/auth/authentication.service';
+import { LoginController } from '@app/auth/login.controller';
+import { JwtStrategy } from '@app/auth/strategies/jwt.strategy';
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { ScheduleModule } from '@schedule/schedule.module';
-import { UserModule } from '@user/user.module';
+import { ScheduleModule } from '../main/schedule.module';
+import { UserModule } from '../main/user.module';
 
 import { HealthController } from './controllers/health.controller';
 import { CreateScheduleController } from './controllers/schedule/create-schedule.controller';
 import { DeleteScheduleController } from './controllers/schedule/delete-schedule.controller';
 import { EditScheduleController } from './controllers/schedule/edit-schedule.controller';
+import { GetMySchedulesController } from './controllers/schedule/get-my-schedules.controller';
 import { DeleteUserController } from './controllers/user/delete-user.controller';
 import { EditUserController } from './controllers/user/edit-user.controller';
 import { RegisterUserController } from './controllers/user/register-user.controller';
@@ -38,6 +39,7 @@ import { JwtAuthGuard } from './guards/jwt.guard';
     CreateScheduleController,
     EditScheduleController,
     DeleteScheduleController,
+    GetMySchedulesController,
   ],
   providers: [
     JwtStrategy,

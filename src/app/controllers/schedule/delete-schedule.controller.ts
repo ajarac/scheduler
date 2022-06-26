@@ -6,8 +6,8 @@ import {
   Param,
   UseGuards,
 } from '@nestjs/common';
-import { DeleteScheduleUseCase } from '@schedule/application/delete-schedule.use-case';
-import { AdminGuard } from 'src/app/guards/admin.guard';
+import { DeleteScheduleUseCase } from '@application/in/delete-schedule.use-case';
+import { AdminGuard } from '@app/guards/admin.guard';
 
 @Controller('schedules')
 export class DeleteScheduleController {

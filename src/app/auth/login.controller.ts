@@ -12,11 +12,11 @@ class Credentials {
   password: string;
 }
 
-@Controller('user/login')
+@Controller('auth')
 export class LoginController {
   constructor(private readonly authenticationService: AuthenticationService) {}
 
-  @Post()
+  @Post('login')
   @Public()
   async login(
     @Body() { username, password }: Credentials,

@@ -10,10 +10,10 @@ import {
 import {
   EditUserDTO,
   EditUserUseCase,
-} from '@user/application/edit-user.use-case';
-import { UserRole, UserRoleList } from '@user/domain/user-role';
+} from '@application/in/edit-user.use-case';
+import { UserRole, UserRoleList } from '@domain/user/user-role';
 import { IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
-import { AdminGuard } from 'src/app/guards/admin.guard';
+import { AdminGuard } from '@app/guards/admin.guard';
 
 class EditUserBody implements EditUserDTO {
   @IsOptional()

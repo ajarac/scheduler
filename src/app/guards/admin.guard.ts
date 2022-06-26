@@ -1,6 +1,6 @@
-import { UserAuth } from '@auth/dto/user-auth';
+import { UserAuth } from '@app/auth/dto/user-auth';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { UserRole } from '@user/domain/user-role';
+import { UserRole } from '@domain/user/user-role';
 import { Observable } from 'rxjs';
 
 @Injectable()

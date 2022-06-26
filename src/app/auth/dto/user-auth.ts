@@ -1,4 +1,4 @@
-import { UserRole } from 'src/main/user/domain/user-role';
+import { UserRole } from '@domain/user/user-role';
 
 export interface UserAuth {
   id: string;
