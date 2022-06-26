@@ -18,6 +18,7 @@ import { EditUserController } from './controllers/user/edit-user.controller';
 import { RegisterUserController } from './controllers/user/register-user.controller';
 import { DatabaseModule } from './database/database.module';
 import { JwtAuthGuard } from './guards/jwt.guard';
+import { GetSchedulesByUseridController } from '@app/controllers/schedule/get-schedules-by-userid.controller';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { JwtAuthGuard } from './guards/jwt.guard';
     EditScheduleController,
     DeleteScheduleController,
     GetMySchedulesController,
+    GetSchedulesByUseridController,
   ],
   providers: [
     JwtStrategy,
