@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Delete,
-  HttpCode,
-  HttpStatus,
-  Param,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Delete, HttpCode, HttpStatus, Param, UseGuards } from '@nestjs/common';
 import { DeleteScheduleUseCase } from '@application/in/delete-schedule.use-case';
 import { AdminGuard } from '@app/guards/admin.guard';
 

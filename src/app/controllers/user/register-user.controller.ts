@@ -1,8 +1,5 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import {
-  CreateUserUseCase,
-  CreateUserDTO,
-} from '@application/in/create-user.use-case';
+import { CreateUserUseCase, CreateUserDTO } from '@application/in/create-user.use-case';
 import { UserRole, UserRoleList } from 'src/main/domain/user/user-role';
 import { IsEnum, IsNotEmpty } from 'class-validator';
 import { Public } from '@app/guards/public.guard';
@@ -13,7 +10,7 @@ class RegisterUserDTO implements CreateUserDTO {
   @IsNotEmpty()
   password: string;
   @IsEnum(UserRole, {
-    message: 'Role should be one of: ' + UserRoleList.join(', '),
+    message: 'Role should be one of: ' + UserRoleList.join(', ')
   })
   role: UserRole;
 }

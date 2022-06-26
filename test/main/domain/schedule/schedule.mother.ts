@@ -8,12 +8,7 @@ export class ScheduleMother {
   }
 
   static random(userId: string = null): Schedule {
-    return new Schedule(
-      IdMother.random(),
-      userId || IdMother.random(),
-      this.workDate(),
-      this.shiftHours(),
-    );
+    return new Schedule(IdMother.random(), userId || IdMother.random(), this.workDate(), this.shiftHours());
   }
 
   static yearAgo(): Date {

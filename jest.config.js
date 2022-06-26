@@ -7,7 +7,7 @@ const moduleNameMapper = Object.keys(paths).reduce((acc, curr) => {
   const path = paths[curr][0].replace('*', '$1').replace('.', '');
   return {
     ...acc,
-    [key]: `<rootDir>${path}`,
+    [key]: `<rootDir>${path}`
   };
 }, {});
 
@@ -17,9 +17,9 @@ module.exports = {
   rootDir: './',
   testRegex: '.*\\.spec\\.ts$',
   transform: {
-    '^.+\\.(t|j)s$': 'ts-jest',
+    '^.+\\.(t|j)s$': 'ts-jest'
   },
   collectCoverageFrom: ['**/*.(t|j)s'],
   coverageDirectory: '../coverage',
-  testEnvironment: 'node',
+  testEnvironment: 'node'
 };

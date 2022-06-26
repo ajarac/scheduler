@@ -12,7 +12,6 @@ import { HealthController } from './controllers/health.controller';
 import { CreateScheduleController } from './controllers/schedule/create-schedule.controller';
 import { DeleteScheduleController } from './controllers/schedule/delete-schedule.controller';
 import { EditScheduleController } from './controllers/schedule/edit-schedule.controller';
-import { GetMySchedulesController } from './controllers/schedule/get-my-schedules.controller';
 import { DeleteUserController } from './controllers/user/delete-user.controller';
 import { EditUserController } from './controllers/user/edit-user.controller';
 import { RegisterUserController } from './controllers/user/register-user.controller';
@@ -26,10 +25,10 @@ import { GetSchedulesByUseridController } from '@app/controllers/schedule/get-sc
     PassportModule,
     JwtModule.register({
       secret: 'SuperSecret',
-      signOptions: { expiresIn: '1d' },
+      signOptions: { expiresIn: '1d' }
     }),
     UserModule,
-    ScheduleModule,
+    ScheduleModule
   ],
   controllers: [
     HealthController,
@@ -40,17 +39,16 @@ import { GetSchedulesByUseridController } from '@app/controllers/schedule/get-sc
     CreateScheduleController,
     EditScheduleController,
     DeleteScheduleController,
-    GetMySchedulesController,
-    GetSchedulesByUseridController,
+    GetSchedulesByUseridController
   ],
   providers: [
     JwtStrategy,
     {
       provide: APP_GUARD,
-      useClass: JwtAuthGuard,
+      useClass: JwtAuthGuard
     },
     AuthenticationService,
-    JwtAuthGuard,
-  ],
+    JwtAuthGuard
+  ]
 })
 export class AppModule {}

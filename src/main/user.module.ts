@@ -12,26 +12,21 @@ import { EditUserUseCase } from '@application/in/edit-user.use-case';
 import { CreateUserUseCase } from '@application/in/create-user.use-case';
 import { UserEntity } from '@infrastructure/storage/entities/typeorm-user.entity';
 
-const useCases: Provider[] = [
-  CreateUserUseCase,
-  DeleteUserUseCase,
-  EditUserUseCase,
-  ValidateUserUseCase,
-];
+const useCases: Provider[] = [CreateUserUseCase, DeleteUserUseCase, EditUserUseCase, ValidateUserUseCase];
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity])],
   providers: [
     {
       provide: USER_STORAGE_TOKEN,
-      useClass: TypeormUserStorage,
+      useClass: TypeormUserStorage
     },
     {
       provide: HASH_PROVIDER_TOKEN,
-      useClass: CryptoHashProvider,
+      useClass: CryptoHashProvider
     },
-    ...useCases,
+    ...useCases
   ],
-  exports: useCases,
+  exports: useCases
 })
 export class UserModule {}

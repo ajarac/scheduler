@@ -11,7 +11,7 @@ export class EditUserUseCase {
     @Inject(USER_STORAGE_TOKEN)
     private readonly userStorage: UserStorage,
     @Inject(HASH_PROVIDER_TOKEN)
-    private readonly hashProvider: HashProvider,
+    private readonly hashProvider: HashProvider
   ) {}
 
   async execute(userId: string, editUserDTO: EditUserDTO): Promise<void> {
@@ -19,10 +19,7 @@ export class EditUserUseCase {
     return this.userStorage.edit(user);
   }
 
-  private async getUserAndUpdate(
-    userId: string,
-    editUserDTO: EditUserDTO,
-  ): Promise<User> {
+  private async getUserAndUpdate(userId: string, editUserDTO: EditUserDTO): Promise<User> {
     const user = await this.getUserOrThrow(userId);
 
     return this.updateUser(user, editUserDTO);

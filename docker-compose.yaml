@@ -1,9 +1,9 @@
-version: "3.8"
+version: '3.8'
 
 services:
   database:
     # this is because I'm using an Apple Silicon M1
-    platform: linux/x86_64 
+    platform: linux/x86_64
     image: mysql:8
     ports:
       - $DB_PORT:3306

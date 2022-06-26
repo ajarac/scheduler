@@ -1,39 +1,24 @@
-import { DateTime } from 'luxon';
+import { DateTime, Interval } from 'luxon';
 
 export class RangeDate {
-  constructor(public readonly from: Date, public readonly to: Date) {}
+  private readonly fromDate: DateTime;
+  private readonly toDate: DateTime;
 
-  static weekAfter(from: Date): Date {
-    return DateTime.fromJSDate(from).plus({ days: 7 }).toJSDate();
+  constructor(from: string, to: string) {
+    this.fromDate = DateTime.fromISO(from);
+    this.toDate = DateTime.fromISO(to);
   }
 
-  static checkFrom(from: string): Date {
-    const now = new Date();
-    if (from == null) {
-      return now;
-    }
-    const fromDate = new Date(from);
-    if (fromDate.getTime() < now.getTime()) {
-      return now;
-    }
-    if (from) return fromDate;
+  get from(): Date {
+    return this.fromDate.toJSDate();
   }
 
-  static checkTo(from: Date, to: string): Date {
-    const toDate = new Date(to || null);
-    const yearsDiff = DateTime.fromJSDate(toDate).diff(DateTime.now()).years;
-    if (yearsDiff > 1) {
-      return DateTime.now().plus({ years: 1 }).toJSDate();
-    }
-    if (toDate.getTime() < from.getTime()) {
-      return this.weekAfter(from);
-    }
-    return toDate;
+  get to(): Date {
+    return this.toDate.toJSDate();
   }
 
-  static fromString(from: string, to: string): RangeDate {
-    const fromDate = this.checkFrom(from);
-    const toDate = this.checkTo(fromDate, to);
-    return new RangeDate(fromDate, toDate);
+  isValid(): boolean {
+    const interval = Interval.fromDateTimes(this.fromDate, this.toDate);
+    return interval.isValid;
   }
 }

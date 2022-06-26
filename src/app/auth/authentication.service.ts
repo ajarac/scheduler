@@ -8,15 +8,9 @@ import { LoginToken } from './dto/login-token';
 
 @Injectable()
 export class AuthenticationService {
-  constructor(
-    private readonly validateUserUseCase: ValidateUserUseCase,
-    private readonly jwtService: JwtService,
-  ) {}
+  constructor(private readonly validateUserUseCase: ValidateUserUseCase, private readonly jwtService: JwtService) {}
 
-  async validate(
-    username: string,
-    password: string,
-  ): Promise<Nullable<UserAuth>> {
+  async validate(username: string, password: string): Promise<Nullable<UserAuth>> {
     const user = await this.validateUserUseCase.execute(username, password);
 
     if (user == null) {
@@ -26,13 +20,13 @@ export class AuthenticationService {
     return {
       id: user.getId(),
       username: user.getUsername(),
-      role: user.getRole(),
+      role: user.getRole()
     };
   }
 
   login(userAuth: UserAuth): LoginToken {
     return {
-      accessToken: this.jwtService.sign(userAuth),
+      accessToken: this.jwtService.sign(userAuth)
     };
   }
 }

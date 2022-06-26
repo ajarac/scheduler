@@ -18,13 +18,8 @@ export class LoginController {
 
   @Post('login')
   @Public()
-  async login(
-    @Body() { username, password }: Credentials,
-  ): Promise<LoginToken> {
-    const userAuth = await this.authenticationService.validate(
-      username,
-      password,
-    );
+  async login(@Body() { username, password }: Credentials): Promise<LoginToken> {
+    const userAuth = await this.authenticationService.validate(username, password);
     return this.authenticationService.login(userAuth);
   }
 }

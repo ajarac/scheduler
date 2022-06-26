@@ -10,5 +10,5 @@ export const DATABASE_CONFIG: TypeOrmModuleOptions = {
   password: process.env.DB_PASSWORD || 'mysqlpassword',
   database: process.env.DB_DATABASE || 'scheduler',
   entities: [UserEntity, ScheduleEntity],
-  synchronize: true,
+  synchronize: true
 };

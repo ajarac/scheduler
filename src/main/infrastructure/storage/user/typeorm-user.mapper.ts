@@ -12,11 +12,6 @@ export class TypeormUserMapper {
   }
 
   static toDomain(typeormUser: UserEntity): User {
-    return new User(
-      typeormUser.id,
-      typeormUser.username,
-      typeormUser.password,
-      typeormUser.role,
-    );
+    return new User(typeormUser.id, typeormUser.username, typeormUser.password, typeormUser.role);
   }
 }

@@ -9,22 +9,17 @@ import { TypeormScheduleStorage } from '@infrastructure/storage/schedule/typeorm
 import { ScheduleEntity } from '@infrastructure/storage/entities/typeorm-schedule.entity';
 import { GetSchedulesByUserIdUseCase } from '@application/in/get-schedules-by-userid.use-case';
 
-const useCases: Provider[] = [
-  CreateScheduleUseCase,
-  DeleteScheduleUseCase,
-  EditScheduleUseCase,
-  GetSchedulesByUserIdUseCase,
-];
+const useCases: Provider[] = [CreateScheduleUseCase, DeleteScheduleUseCase, EditScheduleUseCase, GetSchedulesByUserIdUseCase];
 
 @Module({
   imports: [TypeOrmModule.forFeature([ScheduleEntity])],
   providers: [
     {
       provide: SCHEDULE_STORAGE_TOKEN,
-      useClass: TypeormScheduleStorage,
+      useClass: TypeormScheduleStorage
     },
-    ...useCases,
+    ...useCases
   ],
-  exports: useCases,
+  exports: useCases
 })
 export class ScheduleModule {}

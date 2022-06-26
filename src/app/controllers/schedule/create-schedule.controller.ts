@@ -1,21 +1,6 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
-import {
-  CreateScheduleDTO,
-  CreateScheduleUseCase,
-} from '@application/in/create-schedule.use-case';
-import {
-  IsDateString,
-  IsNotEmpty,
-  IsNumber,
-  IsPositive,
-} from 'class-validator';
+import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { CreateScheduleDTO, CreateScheduleUseCase } from '@application/in/create-schedule.use-case';
+import { IsDateString, IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 import { AdminGuard } from 'src/app/guards/admin.guard';
 
 class CreateScheduleBody implements CreateScheduleDTO {

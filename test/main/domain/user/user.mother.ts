@@ -5,12 +5,7 @@ import { UserRole } from '../../../../src/main/domain/user/user-role';
 
 export class UserMother {
   static random(): User {
-    return new User(
-      IdMother.random(),
-      this.userName(),
-      this.password(),
-      this.role(),
-    );
+    return new User(IdMother.random(), this.userName(), this.password(), this.role());
   }
 
   static userName(): string {

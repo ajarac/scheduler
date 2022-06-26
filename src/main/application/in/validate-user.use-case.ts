@@ -9,7 +9,7 @@ export class ValidateUserUseCase {
     @Inject(USER_STORAGE_TOKEN)
     private readonly storage: UserStorage,
     @Inject(HASH_PROVIDER_TOKEN)
-    private readonly hashProvider: HashProvider,
+    private readonly hashProvider: HashProvider
   ) {}
 
   async execute(username: string, password: string): Promise<User> {

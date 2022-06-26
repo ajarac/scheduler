@@ -10,7 +10,7 @@ export class CreateUserUseCase {
     @Inject(USER_STORAGE_TOKEN)
     private readonly storage: UserStorage,
     @Inject(HASH_PROVIDER_TOKEN)
-    private readonly hashProvider: HashProvider,
+    private readonly hashProvider: HashProvider
   ) {}
 
   execute({ username, password, role }: CreateUserDTO): Promise<void> {

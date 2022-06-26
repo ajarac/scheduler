@@ -17,13 +17,8 @@ describe('Typeorm User Storage', () => {
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [
-        TypeOrmModule.forRoot(
-          createTestConfiguration([ScheduleEntity, UserEntity]),
-        ),
-        TypeOrmModule.forFeature([UserEntity]),
-      ],
-      providers: [TypeormUserStorage],
+      imports: [TypeOrmModule.forRoot(createTestConfiguration([ScheduleEntity, UserEntity])), TypeOrmModule.forFeature([UserEntity])],
+      providers: [TypeormUserStorage]
     }).compile();
     userStorage = moduleRef.get(TypeormUserStorage);
     repository = moduleRef.get(REPOSITORY_TOKEN);
@@ -40,13 +35,9 @@ describe('Typeorm User Storage', () => {
   describe('create', () => {
     it('should throw error if there is any issue saving the user', async () => {
       const user = UserMother.random();
-      jest
-        .spyOn(repository, 'save')
-        .mockRejectedValue(new Error('Error in DB'));
+      jest.spyOn(repository, 'save').mockRejectedValue(new Error('Error in DB'));
 
-      await expect(userStorage.create(user)).rejects.toEqual(
-        new Error('Error in DB'),
-      );
+      await expect(userStorage.create(user)).rejects.toEqual(new Error('Error in DB'));
     });
 
     it('should create an user', async () => {
@@ -63,13 +54,9 @@ describe('Typeorm User Storage', () => {
   describe('getById', () => {
     it('should throw error if there is any issue getting the user', async () => {
       const userId = IdMother.random();
-      jest
-        .spyOn(repository, 'findOneBy')
-        .mockRejectedValue(new Error('Error in DB'));
+      jest.spyOn(repository, 'findOneBy').mockRejectedValue(new Error('Error in DB'));
 
-      await expect(userStorage.getById(userId)).rejects.toEqual(
-        new Error('Error in DB'),
-      );
+      await expect(userStorage.getById(userId)).rejects.toEqual(new Error('Error in DB'));
     });
 
     it('should return null if there is not any user with userId', async () => {
@@ -98,13 +85,9 @@ describe('Typeorm User Storage', () => {
     describe('edit', () => {
       it('should throw error if there is any issue editting the user', async () => {
         const user = UserMother.random();
-        jest
-          .spyOn(repository, 'update')
-          .mockRejectedValue(new Error('Error in DB'));
+        jest.spyOn(repository, 'update').mockRejectedValue(new Error('Error in DB'));
 
-        await expect(userStorage.edit(user)).rejects.toEqual(
-          new Error('Error in DB'),
-        );
+        await expect(userStorage.edit(user)).rejects.toEqual(new Error('Error in DB'));
       });
 
       it('should edit the user to db', async () => {
@@ -114,23 +97,16 @@ describe('Typeorm User Storage', () => {
         await userStorage.edit(user);
 
         expect(spy).toBeCalledTimes(1);
-        expect(spy).toBeCalledWith(
-          { id: user.getId() },
-          TypeormUserMapper.fromDomain(user),
-        );
+        expect(spy).toBeCalledWith({ id: user.getId() }, TypeormUserMapper.fromDomain(user));
       });
     });
 
     describe('delete', () => {
       it('should throw error if there is any issue deleting the user', async () => {
         const userId = IdMother.random();
-        jest
-          .spyOn(repository, 'delete')
-          .mockRejectedValue(new Error('Error in DB'));
+        jest.spyOn(repository, 'delete').mockRejectedValue(new Error('Error in DB'));
 
-        await expect(userStorage.delete(userId)).rejects.toEqual(
-          new Error('Error in DB'),
-        );
+        await expect(userStorage.delete(userId)).rejects.toEqual(new Error('Error in DB'));
       });
 
       it('should delete user', async () => {

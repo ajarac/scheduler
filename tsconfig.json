@@ -18,26 +18,14 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@domain/*": [
-        "src/main/domain/*"
-      ],
-      "@application/*": [
-        "src/main/application/*"
-      ],
+      "@domain/*": ["src/main/domain/*"],
+      "@application/*": ["src/main/application/*"],
       "@infrastructure/*": ["src/main/infrastructure/*"],
-      "@shared/*": [
-        "./src/main/shared/*"
-      ],
-      "@test/domain/*": [
-        "test/main/domain/*"
-      ],
-      "@test/application/*": [
-        "./test/main/application/*"
-      ],
+      "@shared/*": ["./src/main/shared/*"],
+      "@test/domain/*": ["test/main/domain/*"],
+      "@test/application/*": ["./test/main/application/*"],
       "@test/infrastructure/*": ["./test/main/infrastructure"],
-      "@app/*": [
-        "src/app/*"
-      ]
+      "@app/*": ["src/app/*"]
     }
   }
 }

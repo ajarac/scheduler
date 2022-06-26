@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Delete,
-  HttpCode,
-  HttpStatus,
-  Param,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Delete, HttpCode, HttpStatus, Param, UseGuards } from '@nestjs/common';
 import { DeleteUserUseCase } from '@application/in/delete-user.use-case';
 import { AdminGuard } from '@app/guards/admin.guard';
 

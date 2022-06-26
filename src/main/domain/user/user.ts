@@ -8,12 +8,7 @@ export class User {
   private password: Nullable<string>;
   private role: UserRole;
 
-  constructor(
-    id: string,
-    username: string,
-    password: Nullable<string>,
-    role: UserRole,
-  ) {
+  constructor(id: string, username: string, password: Nullable<string>, role: UserRole) {
     this.id = id;
     this.username = username;
     this.password = password;

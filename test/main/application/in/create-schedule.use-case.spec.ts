@@ -1,9 +1,6 @@
 import { DummyScheduleStorage } from '@test/application/out/dummy-schedule.storage';
 import { IdMother } from '@test/domain/id.mother';
-import {
-  CreateScheduleDTO,
-  CreateScheduleUseCase,
-} from '@application/in/create-schedule.use-case';
+import { CreateScheduleDTO, CreateScheduleUseCase } from '@application/in/create-schedule.use-case';
 import { ScheduleMother } from '@test/domain/schedule/schedule.mother';
 import { Schedule } from '@domain/schedule/schedule';
 import { ScheduleStorage } from '@application/out/schedule.storage';
@@ -28,15 +25,8 @@ describe('Create Schedule Use Case', () => {
     const createScheduleDTO = CreateScheduleDTOMother(user.getId());
 
     const spySchedule = jest.spyOn(DummyScheduleStorage.prototype, 'create');
-    jest
-      .spyOn(DummyScheduleStorage.prototype, 'getNextId')
-      .mockImplementation(() => scheduleId);
-    const expectedToCall = new Schedule(
-      scheduleId,
-      createScheduleDTO.userId,
-      createScheduleDTO.workDate,
-      createScheduleDTO.shiftHours,
-    );
+    jest.spyOn(DummyScheduleStorage.prototype, 'getNextId').mockImplementation(() => scheduleId);
+    const expectedToCall = new Schedule(scheduleId, createScheduleDTO.userId, createScheduleDTO.workDate, createScheduleDTO.shiftHours);
 
     await createScheduleUseCase.execute(createScheduleDTO);
 
@@ -49,6 +39,6 @@ function CreateScheduleDTOMother(userId: string): CreateScheduleDTO {
   return {
     userId,
     workDate: ScheduleMother.workDate(),
-    shiftHours: ScheduleMother.shiftHours(),
+    shiftHours: ScheduleMother.shiftHours()
   };
 }

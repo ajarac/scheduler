@@ -1,6 +1,6 @@
 export enum UserRole {
   STAFF = 'STAFF',
-  ADMIN = 'ADMIN',
+  ADMIN = 'ADMIN'
 }
 
 export const UserRoleList = Object.keys(UserRole).map((key) => UserRole[key]);

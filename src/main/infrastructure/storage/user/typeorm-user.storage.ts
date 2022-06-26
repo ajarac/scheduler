@@ -12,7 +12,7 @@ import { TypeormUserMapper } from './typeorm-user.mapper';
 export class TypeormUserStorage implements UserStorage {
   constructor(
     @InjectRepository(UserEntity)
-    private usersRepository: Repository<UserEntity>,
+    private usersRepository: Repository<UserEntity>
   ) {}
 
   async getByUsername(username: string): Promise<User> {

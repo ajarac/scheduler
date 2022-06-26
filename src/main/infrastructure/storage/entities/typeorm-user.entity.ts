@@ -19,7 +19,7 @@ export class UserEntity {
   role: UserRole;
 
   @OneToMany(() => ScheduleEntity, (schedule) => schedule.user, {
-    cascade: true,
+    cascade: true
   })
   schedules: ScheduleEntity[];
 }

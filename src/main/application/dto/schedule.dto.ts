@@ -11,6 +11,6 @@ export function domainToDTO(schedule: Schedule): ScheduleDTO {
     id: schedule.getId(),
     userId: schedule.getUserId(),
     workDate: schedule.getWorkDate(),
-    shiftHours: schedule.getShiftHours(),
+    shiftHours: schedule.getShiftHours()
   };
 }

@@ -2,10 +2,7 @@ import { ScheduleStorage } from '@application/out/schedule.storage';
 import { DummyScheduleStorage } from '@test/application/out/dummy-schedule.storage';
 import { ScheduleNotFound } from '@domain/schedule/schedule-not-found';
 import { IdMother } from '@test/domain/id.mother';
-import {
-  EditScheduleDTO,
-  EditScheduleUseCase,
-} from '@application/in/edit-schedule.use-case';
+import { EditScheduleDTO, EditScheduleUseCase } from '@application/in/edit-schedule.use-case';
 import { ScheduleMother } from '@test/domain/schedule/schedule.mother';
 
 describe('Edit Schedule Use Case', () => {
@@ -24,41 +21,27 @@ describe('Edit Schedule Use Case', () => {
   it('should throw error if editing ocurr any error', async () => {
     const schedule = ScheduleMother.random();
     const editScheduleDTO = EditScheduleDTOMother();
-    jest
-      .spyOn(DummyScheduleStorage.prototype, 'getById')
-      .mockResolvedValue(schedule);
+    jest.spyOn(DummyScheduleStorage.prototype, 'getById').mockResolvedValue(schedule);
 
-    jest
-      .spyOn(DummyScheduleStorage.prototype, 'edit')
-      .mockRejectedValue(new Error('error in storage'));
+    jest.spyOn(DummyScheduleStorage.prototype, 'edit').mockRejectedValue(new Error('error in storage'));
 
-    await expect(
-      editScheduleUseCase.execute(schedule.getId(), editScheduleDTO),
-    ).rejects.toEqual(new Error('error in storage'));
+    await expect(editScheduleUseCase.execute(schedule.getId(), editScheduleDTO)).rejects.toEqual(new Error('error in storage'));
   });
 
   it('should throw error if schedule does not exist', async () => {
     const scheduleId = IdMother.random();
-    jest
-      .spyOn(DummyScheduleStorage.prototype, 'getById')
-      .mockResolvedValue(null);
+    jest.spyOn(DummyScheduleStorage.prototype, 'getById').mockResolvedValue(null);
     const editScheduleDTO = EditScheduleDTOMother();
 
-    await expect(
-      editScheduleUseCase.execute(scheduleId, editScheduleDTO),
-    ).rejects.toEqual(new ScheduleNotFound(scheduleId));
+    await expect(editScheduleUseCase.execute(scheduleId, editScheduleDTO)).rejects.toEqual(new ScheduleNotFound(scheduleId));
   });
 
   it('should edit schedule and save it', async () => {
     const schedule = ScheduleMother.random();
     const editScheduleDTO = EditScheduleDTOMother();
-    const spyGetById = jest
-      .spyOn(DummyScheduleStorage.prototype, 'getById')
-      .mockResolvedValue(schedule);
+    const spyGetById = jest.spyOn(DummyScheduleStorage.prototype, 'getById').mockResolvedValue(schedule);
 
-    const spyEdit = jest
-      .spyOn(DummyScheduleStorage.prototype, 'edit')
-      .mockResolvedValue(null);
+    const spyEdit = jest.spyOn(DummyScheduleStorage.prototype, 'edit').mockResolvedValue(null);
 
     await editScheduleUseCase.execute(schedule.getId(), editScheduleDTO);
 
@@ -68,7 +51,7 @@ describe('Edit Schedule Use Case', () => {
     expect(spyEdit).toBeCalledWith({
       id: schedule.getId(),
       userId: schedule.getUserId(),
-      ...editScheduleDTO,
+      ...editScheduleDTO
     });
   });
 });
@@ -76,6 +59,6 @@ describe('Edit Schedule Use Case', () => {
 function EditScheduleDTOMother(): EditScheduleDTO {
   return {
     workDate: ScheduleMother.workDate(),
-    shiftHours: ScheduleMother.shiftHours(),
+    shiftHours: ScheduleMother.shiftHours()
   };
 }

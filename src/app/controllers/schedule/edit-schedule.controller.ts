@@ -1,22 +1,6 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Param,
-  Patch,
-  UseGuards,
-} from '@nestjs/common';
-import {
-  EditScheduleDTO,
-  EditScheduleUseCase,
-} from '@application/in/edit-schedule.use-case';
-import {
-  IsDateString,
-  IsNumber,
-  IsOptional,
-  IsPositive,
-} from 'class-validator';
+import { Body, Controller, HttpCode, HttpStatus, Param, Patch, UseGuards } from '@nestjs/common';
+import { EditScheduleDTO, EditScheduleUseCase } from '@application/in/edit-schedule.use-case';
+import { IsDateString, IsNumber, IsOptional, IsPositive } from 'class-validator';
 import { AdminGuard } from '@app/guards/admin.guard';
 
 class EditScheduleBody implements EditScheduleDTO {
@@ -36,10 +20,7 @@ export class EditScheduleController {
   @Patch(':id')
   @UseGuards(AdminGuard)
   @HttpCode(HttpStatus.ACCEPTED)
-  edit(
-    @Param('id') id: string,
-    @Body() editScheduleBody: EditScheduleBody,
-  ): Promise<void> {
+  edit(@Param('id') id: string, @Body() editScheduleBody: EditScheduleBody): Promise<void> {
     return this.editScheduleUseCase.execute(id, editScheduleBody);
   }
 }

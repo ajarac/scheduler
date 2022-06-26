@@ -5,7 +5,7 @@ import { USER_STORAGE_TOKEN, UserStorage } from '../out/user.storage';
 export class DeleteUserUseCase {
   constructor(
     @Inject(USER_STORAGE_TOKEN)
-    private readonly userStorage: UserStorage,
+    private readonly userStorage: UserStorage
   ) {}
 
   execute(id: string): Promise<void> {

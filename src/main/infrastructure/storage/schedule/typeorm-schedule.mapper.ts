@@ -15,11 +15,6 @@ export class TypeormScheduleMapper {
   }
 
   static toDomain(entity: ScheduleEntity): Schedule {
-    return new Schedule(
-      entity.id,
-      entity.user.id,
-      entity.workDate,
-      entity.shiftHours,
-    );
+    return new Schedule(entity.id, entity.user.id, entity.workDate, entity.shiftHours);
   }
 }

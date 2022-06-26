@@ -21,12 +21,10 @@ describe('Typeorm Schedule Storage', () => {
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [
-        TypeOrmModule.forRoot(
-          createTestConfiguration([ScheduleEntity, UserEntity]),
-        ),
-        TypeOrmModule.forFeature([ScheduleEntity, UserEntity]),
+        TypeOrmModule.forRoot(createTestConfiguration([ScheduleEntity, UserEntity])),
+        TypeOrmModule.forFeature([ScheduleEntity, UserEntity])
       ],
-      providers: [TypeormScheduleStorage],
+      providers: [TypeormScheduleStorage]
     }).compile();
 
     scheduleStorage = moduleRef.get(TypeormScheduleStorage);
@@ -52,13 +50,9 @@ describe('Typeorm Schedule Storage', () => {
   describe('create', () => {
     it('should throw error if there is any issue saving the schedule', async () => {
       const schedule = ScheduleMother.random();
-      jest
-        .spyOn(repository, 'save')
-        .mockRejectedValue(new Error('Error in DB'));
+      jest.spyOn(repository, 'save').mockRejectedValue(new Error('Error in DB'));
 
-      await expect(scheduleStorage.create(schedule)).rejects.toEqual(
-        new Error('Error in DB'),
-      );
+      await expect(scheduleStorage.create(schedule)).rejects.toEqual(new Error('Error in DB'));
     });
 
     it('should create an schedule', async () => {
@@ -69,22 +63,16 @@ describe('Typeorm Schedule Storage', () => {
       await scheduleStorage.create(schedule);
 
       expect(spySave).toBeCalledTimes(1);
-      expect(spySave).toBeCalledWith(
-        TypeormScheduleMapper.fromDomain(schedule),
-      );
+      expect(spySave).toBeCalledWith(TypeormScheduleMapper.fromDomain(schedule));
     });
   });
 
   describe('getById', () => {
     it('should throw error if there is any issue getting the schedule', async () => {
       const scheduleId = IdMother.random();
-      jest
-        .spyOn(repository, 'findOneBy')
-        .mockRejectedValue(new Error('Error in DB'));
+      jest.spyOn(repository, 'findOneBy').mockRejectedValue(new Error('Error in DB'));
 
-      await expect(scheduleStorage.getById(scheduleId)).rejects.toEqual(
-        new Error('Error in DB'),
-      );
+      await expect(scheduleStorage.getById(scheduleId)).rejects.toEqual(new Error('Error in DB'));
     });
 
     it('should return null if there is not any schedule with scheduleId', async () => {
@@ -116,11 +104,7 @@ describe('Typeorm Schedule Storage', () => {
     it('should return empty schedules if there is not any with userId and range between', async () => {
       const userId = IdMother.random();
 
-      const schedulesExpected = await scheduleStorage.search(
-        userId,
-        ScheduleMother.yearAgo(),
-        new Date(),
-      );
+      const schedulesExpected = await scheduleStorage.search(userId, ScheduleMother.yearAgo(), new Date());
 
       expect(schedulesExpected.length).toBe(0);
     });
@@ -131,11 +115,7 @@ describe('Typeorm Schedule Storage', () => {
       for (const schedule of schedules) {
         await scheduleStorage.create(schedule);
       }
-      const schedulesExpected = await scheduleStorage.search(
-        user.getId(),
-        ScheduleMother.yearAgo(),
-        new Date(),
-      );
+      const schedulesExpected = await scheduleStorage.search(user.getId(), ScheduleMother.yearAgo(), new Date());
 
       expect(schedulesExpected.length).toBe(10);
       expect(schedulesExpected).toEqual(schedules);
@@ -145,13 +125,9 @@ describe('Typeorm Schedule Storage', () => {
   describe('edit', () => {
     it('should throw error if there is any issue editting the schedule', async () => {
       const schedule = ScheduleMother.random();
-      jest
-        .spyOn(repository, 'update')
-        .mockRejectedValue(new Error('Error in DB'));
+      jest.spyOn(repository, 'update').mockRejectedValue(new Error('Error in DB'));
 
-      await expect(scheduleStorage.edit(schedule)).rejects.toEqual(
-        new Error('Error in DB'),
-      );
+      await expect(scheduleStorage.edit(schedule)).rejects.toEqual(new Error('Error in DB'));
     });
 
     it('should edit the schedule to db', async () => {
@@ -162,23 +138,16 @@ describe('Typeorm Schedule Storage', () => {
       await scheduleStorage.edit(schedule);
 
       expect(spy).toBeCalledTimes(1);
-      expect(spy).toBeCalledWith(
-        { id: schedule.getId() },
-        TypeormScheduleMapper.fromDomain(schedule),
-      );
+      expect(spy).toBeCalledWith({ id: schedule.getId() }, TypeormScheduleMapper.fromDomain(schedule));
     });
   });
 
   describe('delete', () => {
     it('should throw error if there is any issue deleting the schedule', async () => {
       const scheduleId = IdMother.random();
-      jest
-        .spyOn(repository, 'delete')
-        .mockRejectedValue(new Error('Error in DB'));
+      jest.spyOn(repository, 'delete').mockRejectedValue(new Error('Error in DB'));
 
-      await expect(scheduleStorage.delete(scheduleId)).rejects.toEqual(
-        new Error('Error in DB'),
-      );
+      await expect(scheduleStorage.delete(scheduleId)).rejects.toEqual(new Error('Error in DB'));
     });
 
     it('should delete schedule', async () => {

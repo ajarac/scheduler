@@ -13,7 +13,7 @@ import { FindManyOptions } from 'typeorm/find-options/FindManyOptions';
 export class TypeormScheduleStorage implements ScheduleStorage {
   constructor(
     @InjectRepository(ScheduleEntity)
-    private readonly scheduleRepository: Repository<ScheduleEntity>,
+    private readonly scheduleRepository: Repository<ScheduleEntity>
   ) {}
 
   getNextId(): string {
@@ -28,7 +28,7 @@ export class TypeormScheduleStorage implements ScheduleStorage {
   async getById(scheduleId: string): Promise<Schedule> {
     const entity = await this.scheduleRepository.findOne({
       relations: { user: true },
-      where: { id: scheduleId },
+      where: { id: scheduleId }
     });
     return entity != null ? TypeormScheduleMapper.toDomain(entity) : null;
   }
@@ -36,7 +36,7 @@ export class TypeormScheduleStorage implements ScheduleStorage {
   async search(userId: string, from: Date, to: Date): Promise<Schedule[]> {
     const query: FindManyOptions<ScheduleEntity> = {
       relations: { user: true },
-      where: { user: { id: userId }, workDate: Between(from, to) },
+      where: { user: { id: userId }, workDate: Between(from, to) }
     };
     const entities = await this.scheduleRepository.find(query);
     return entities.map(TypeormScheduleMapper.toDomain);

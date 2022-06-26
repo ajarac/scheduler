@@ -1,16 +1,5 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Param,
-  Patch,
-  UseGuards,
-} from '@nestjs/common';
-import {
-  EditUserDTO,
-  EditUserUseCase,
-} from '@application/in/edit-user.use-case';
+import { Body, Controller, HttpCode, HttpStatus, Param, Patch, UseGuards } from '@nestjs/common';
+import { EditUserDTO, EditUserUseCase } from '@application/in/edit-user.use-case';
 import { UserRole, UserRoleList } from '@domain/user/user-role';
 import { IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
 import { AdminGuard } from '@app/guards/admin.guard';
@@ -24,7 +13,7 @@ class EditUserBody implements EditUserDTO {
   password: string;
   @IsOptional()
   @IsEnum(UserRole, {
-    message: 'Role should be one of: ' + UserRoleList.join(', '),
+    message: 'Role should be one of: ' + UserRoleList.join(', ')
   })
   role: UserRole;
 }
