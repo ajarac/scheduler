@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { SCHEDULE_STORAGE_TOKEN, ScheduleStorage } from '../out/schedule.storage';
 
-import { domainToDTO, ScheduleDTO } from '../dto/schedule.dto';
+import { scheduleDomainToDTO, ScheduleDTO } from '../dto/schedule.dto';
 
 @Injectable()
 export class GetSchedulesByUserIdUseCase {
@@ -9,6 +9,6 @@ export class GetSchedulesByUserIdUseCase {
 
   async execute(userId: string, from: Date, to: Date): Promise<ScheduleDTO[]> {
     const schedules = await this.storage.search(userId, from, to);
-    return schedules.map(domainToDTO);
+    return schedules.map(scheduleDomainToDTO);
   }
 }

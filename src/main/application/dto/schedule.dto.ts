@@ -6,7 +6,7 @@ export interface ScheduleDTO {
   workDate: Date;
   shiftHours: number;
 }
-export function domainToDTO(schedule: Schedule): ScheduleDTO {
+export function scheduleDomainToDTO(schedule: Schedule): ScheduleDTO {
   return {
     id: schedule.getId(),
     userId: schedule.getUserId(),

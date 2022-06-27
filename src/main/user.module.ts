@@ -1,5 +1,4 @@
-import { Provider } from '@nestjs/common';
-import { Module } from '@nestjs/common';
+import { Module, Provider } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { USER_STORAGE_TOKEN } from '@application/out/user.storage';
@@ -11,8 +10,9 @@ import { HASH_PROVIDER_TOKEN } from '@application/out/hash.provider';
 import { EditUserUseCase } from '@application/in/edit-user.use-case';
 import { CreateUserUseCase } from '@application/in/create-user.use-case';
 import { UserEntity } from '@infrastructure/storage/entities/typeorm-user.entity';
+import { GetTopUsersUseCase } from '@application/in/get-top-users.use-case';
 
-const useCases: Provider[] = [CreateUserUseCase, DeleteUserUseCase, EditUserUseCase, ValidateUserUseCase];
+const useCases: Provider[] = [CreateUserUseCase, DeleteUserUseCase, EditUserUseCase, ValidateUserUseCase, GetTopUsersUseCase];
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity])],

@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, HttpStatus, Param, Query, Req, Res } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Query, Req, Res } from '@nestjs/common';
 import { GetSchedulesByUserIdUseCase } from '@application/in/get-schedules-by-userid.use-case';
 import { ScheduleDTO } from '@application/dto/schedule.dto';
 import { RangeDate } from '@app/controllers/dto/range-date';
@@ -23,7 +23,6 @@ export class GetSchedulesByUseridController {
   }
 
   @Get('mine')
-  @HttpCode(HttpStatus.ACCEPTED)
   async getMine(
     @Query('from') from: string,
     @Query('to') to: string,
@@ -35,11 +34,11 @@ export class GetSchedulesByUseridController {
       return;
     }
     const { id } = request.user as UserAuth;
-    return this.getSchedulesByUserIdUseCase.execute(id, range.from, range.to);
+    const schedules = await this.getSchedulesByUserIdUseCase.execute(id, range.from, range.to);
+    response.status(HttpStatus.ACCEPTED).json(schedules);
   }
 
   @Get(':userId')
-  @HttpCode(HttpStatus.ACCEPTED)
   async getById(
     @Query('from') from: string,
     @Query('to') to: string,
