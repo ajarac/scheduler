@@ -11,8 +11,16 @@ import { EditUserUseCase } from '@application/in/edit-user.use-case';
 import { CreateUserUseCase } from '@application/in/create-user.use-case';
 import { UserEntity } from '@infrastructure/storage/entities/typeorm-user.entity';
 import { GetTopUsersUseCase } from '@application/in/get-top-users.use-case';
+import { GetUsersUseCase } from '@application/in/get-users.use-case';
 
-const useCases: Provider[] = [CreateUserUseCase, DeleteUserUseCase, EditUserUseCase, ValidateUserUseCase, GetTopUsersUseCase];
+const useCases: Provider[] = [
+  CreateUserUseCase,
+  DeleteUserUseCase,
+  EditUserUseCase,
+  ValidateUserUseCase,
+  GetTopUsersUseCase,
+  GetUsersUseCase
+];
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity])],

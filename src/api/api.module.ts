@@ -2,7 +2,7 @@ import { AuthenticationService } from './auth/authentication.service';
 import { LoginController } from './auth/login.controller';
 import { JwtStrategy } from './auth/strategies/jwt.strategy';
 import { Module } from '@nestjs/common';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { ScheduleModule } from '../main/schedule.module';
@@ -19,6 +19,10 @@ import { DatabaseModule } from './database/database.module';
 import { JwtAuthGuard } from './guards/jwt.guard';
 import { GetSchedulesByUseridController } from './controllers/schedule/get-schedules-by-userid.controller';
 import { GetTopUsersController } from './controllers/user/get-top-users.controller';
+import { ScheduleNotFoundException } from '@api/exceptions/schedule-not-found.exception';
+import { UserNotFoundException } from '@api/exceptions/user-not-found.exception';
+import { SchedulesAlreadyExistsException } from '@api/exceptions/schedules-already-exists.exception';
+import { GetUsersController } from '@api/controllers/user/get-users.controller';
 
 @Module({
   imports: [
@@ -41,13 +45,26 @@ import { GetTopUsersController } from './controllers/user/get-top-users.controll
     EditScheduleController,
     DeleteScheduleController,
     GetSchedulesByUseridController,
-    GetTopUsersController
+    GetTopUsersController,
+    GetUsersController
   ],
   providers: [
     JwtStrategy,
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard
+    },
+    {
+      provide: APP_FILTER,
+      useClass: ScheduleNotFoundException
+    },
+    {
+      provide: APP_FILTER,
+      useClass: UserNotFoundException
+    },
+    {
+      provide: APP_FILTER,
+      useClass: SchedulesAlreadyExistsException
     },
     AuthenticationService,
     JwtAuthGuard

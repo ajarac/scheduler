@@ -16,6 +16,8 @@ export interface UserStorage {
 
   getTopUsers(order: Order, from: Date, to: Date): Promise<UserDTO[]>;
 
+  getUsers(): Promise<User[]>;
+
   edit(user: User): Promise<void>;
 
   delete(id: string): Promise<void>;

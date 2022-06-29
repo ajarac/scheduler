@@ -2,20 +2,35 @@ version: '3.8'
 
 services:
   database:
-    # this is because I'm using an Apple Silicon M1
-    platform: linux/x86_64
-    image: mysql:8
+    container_name: ${DB_HOST}
+    restart: always
+    image: mariadb:latest
     ports:
       - $DB_PORT:3306
     volumes:
       - database:/var/lib/mysql
-    env_file:
-      - .env
     environment:
       - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
       - MYSQL_PASSWORD=$DB_PASSWORD
       - MYSQL_USER=$DB_USERNAME
       - MYSQL_DATABASE=$DB_DATABASE
+
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - $APP_PORT:$APP_PORT
+    restart: always
+    depends_on:
+      - $DB_HOST
+    environment:
+      - APP_PORT=$APP_PORT
+      - DB_HOST=$DB_HOST
+      - DB_USERNAME=$DB_USERNAME
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_PORT=$DB_PORT
+      - DB_DATABASE=$DB_DATABASE
 
 volumes:
   database: {}

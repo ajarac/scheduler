@@ -1,11 +1,15 @@
 import { faker } from '@faker-js/faker';
 import { IdMother } from '../id.mother';
-import { User } from '../../../../src/main/domain/user/user';
-import { UserRole } from '../../../../src/main/domain/user/user-role';
+import { User } from '@domain/user/user';
+import { UserRole } from '@domain/user/user-role';
 
 export class UserMother {
   static random(): User {
     return new User(IdMother.random(), this.userName(), this.password(), this.role());
+  }
+
+  static randomList(size: number): User[] {
+    return new Array(size).fill(null).map(() => this.random());
   }
 
   static userName(): string {

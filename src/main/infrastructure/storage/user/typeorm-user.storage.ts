@@ -47,6 +47,11 @@ export class TypeormUserStorage implements UserStorage {
     await this.usersRepository.delete({ id });
   }
 
+  async getUsers(): Promise<User[]> {
+    const entities = await this.usersRepository.find();
+    return entities.map(TypeormUserMapper.toDomain);
+  }
+
   getTopUsers(order: Order, from: Date, to: Date): Promise<UserDTO[]> {
     const query = this.manager
       .getRepository(ScheduleEntity)

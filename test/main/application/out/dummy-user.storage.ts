@@ -30,4 +30,8 @@ export class DummyUserStorage implements UserStorage {
   getTopUsers(): Promise<UserDTO[]> {
     return Promise.resolve([]);
   }
+
+  getUsers(): Promise<User[]> {
+    return Promise.resolve([]);
+  }
 }
