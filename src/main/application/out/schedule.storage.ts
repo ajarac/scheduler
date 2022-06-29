@@ -1,8 +1,6 @@
 import { Nullable } from '@shared/types/nullable';
 
 import { Schedule } from '@domain/schedule/schedule';
-import { Order } from '@shared/short';
-import { UserDTO } from '@application/dto/user.dto';
 
 export const SCHEDULE_STORAGE_TOKEN = Symbol('SCHEDULE_STORAGE_TOKEN');
 

@@ -1,7 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Schedule } from '@domain/schedule/schedule';
 
-import { ScheduleStorage, SCHEDULE_STORAGE_TOKEN } from '../out/schedule.storage';
+import { SCHEDULE_STORAGE_TOKEN, ScheduleStorage } from '../out/schedule.storage';
+import { SchedulesAlreadyExists } from '@domain/schedule/schedules-already-exists';
 
 @Injectable()
 export class CreateScheduleUseCase {
@@ -10,9 +11,31 @@ export class CreateScheduleUseCase {
     private readonly scheduleStorage: ScheduleStorage
   ) {}
 
-  async execute({ userId, workDate, shiftHours }: CreateScheduleDTO): Promise<void> {
+  private static getFinishDate(workDate: Date, shiftHours: number): Date {
+    const finishDate = new Date(workDate);
+    finishDate.setHours(finishDate.getHours() + shiftHours);
+    return finishDate;
+  }
+
+  async execute(createScheduleDTO: CreateScheduleDTO): Promise<void> {
+    const schedulesAlreadyExists = await this.checkIfSchedulesAlreadyExists(createScheduleDTO);
+    if (schedulesAlreadyExists) {
+      throw new SchedulesAlreadyExists();
+    }
+
+    return this.save(createScheduleDTO);
+  }
+
+  private async checkIfSchedulesAlreadyExists({ userId, workDate, shiftHours }: CreateScheduleDTO): Promise<boolean> {
+    const finishDate = CreateScheduleUseCase.getFinishDate(workDate, shiftHours);
+    const schedules: Schedule[] = await this.scheduleStorage.search(userId, workDate, finishDate);
+    return schedules.length > 0;
+  }
+
+  private async save({ userId, workDate, shiftHours }: CreateScheduleDTO): Promise<void> {
     const scheduleId = this.scheduleStorage.getNextId();
     const schedule = new Schedule(scheduleId, userId, workDate, shiftHours);
+
     return this.scheduleStorage.create(schedule);
   }
 }

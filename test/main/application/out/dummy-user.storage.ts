@@ -1,6 +1,7 @@
 import { Nullable } from '@shared/types/nullable';
 import { User } from '@domain/user/user';
 import { UserStorage } from '@application/out/user.storage';
+import { UserDTO } from '@application/dto/user.dto';
 
 export class DummyUserStorage implements UserStorage {
   getByUsername(): Promise<Nullable<User>> {
@@ -24,5 +25,9 @@ export class DummyUserStorage implements UserStorage {
 
   getNextId(): string {
     return '';
+  }
+
+  getTopUsers(): Promise<UserDTO[]> {
+    return Promise.resolve([]);
   }
 }

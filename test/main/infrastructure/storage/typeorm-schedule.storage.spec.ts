@@ -70,33 +70,33 @@ describe('Typeorm Schedule Storage', () => {
   describe('getById', () => {
     it('should throw error if there is any issue getting the schedule', async () => {
       const scheduleId = IdMother.random();
-      jest.spyOn(repository, 'findOneBy').mockRejectedValue(new Error('Error in DB'));
+      jest.spyOn(repository, 'findOne').mockRejectedValue(new Error('Error in DB'));
 
       await expect(scheduleStorage.getById(scheduleId)).rejects.toEqual(new Error('Error in DB'));
     });
 
     it('should return null if there is not any schedule with scheduleId', async () => {
       const scheduleId = IdMother.random();
-      const spy = jest.spyOn(repository, 'findOneBy');
+      const spy = jest.spyOn(repository, 'findOne');
 
       const schedule = await scheduleStorage.getById(scheduleId);
 
       expect(schedule).toBe(null);
       expect(spy).toBeCalledTimes(1);
-      expect(spy).toBeCalledWith({ id: scheduleId });
+      expect(spy).toBeCalledWith({ relations: { user: true }, where: { id: scheduleId } });
     });
 
     it('should return an schedule with scheduleId', async () => {
       const user = await saveUser();
       const scheduleExpected = ScheduleMother.random(user.getId());
-      const spy = jest.spyOn(repository, 'findOneBy');
+      const spy = jest.spyOn(repository, 'findOne');
       await repository.save(TypeormScheduleMapper.fromDomain(scheduleExpected));
 
       const schedule = await scheduleStorage.getById(scheduleExpected.getId());
 
       expect(schedule).toEqual(scheduleExpected);
       expect(spy).toBeCalledTimes(1);
-      expect(spy).toBeCalledWith({ id: scheduleExpected.getId() });
+      expect(spy).toBeCalledWith({ relations: { user: true }, where: { id: schedule.getId() } });
     });
   });
 
