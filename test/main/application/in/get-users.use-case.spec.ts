@@ -13,6 +13,10 @@ describe('Get Users Use Case', () => {
     getUsersUseCase = new GetUsersUseCase(userStorage);
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should throw error if getting users ocurr any error', async () => {
     jest.spyOn(DummyUserStorage.prototype, 'getUsers').mockRejectedValue(new Error('error in storage'));
 
