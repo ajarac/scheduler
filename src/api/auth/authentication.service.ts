@@ -1,4 +1,4 @@
-import { UserAuth } from '@app/auth/dto/user-auth';
+import { UserAuth } from './dto/user-auth';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ValidateUserUseCase } from '@application/in/validate-user.use-case';

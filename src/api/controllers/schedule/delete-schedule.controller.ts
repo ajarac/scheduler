@@ -1,7 +1,10 @@
 import { Controller, Delete, HttpCode, HttpStatus, Param, UseGuards } from '@nestjs/common';
 import { DeleteScheduleUseCase } from '@application/in/delete-schedule.use-case';
-import { AdminGuard } from '@app/guards/admin.guard';
+import { AdminGuard } from '@api/guards/admin.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('schedules')
 @Controller('schedules')
 export class DeleteScheduleController {
   constructor(private readonly deleteScheduleUseCase: DeleteScheduleUseCase) {}

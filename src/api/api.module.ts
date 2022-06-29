@@ -1,6 +1,6 @@
-import { AuthenticationService } from '@app/auth/authentication.service';
-import { LoginController } from '@app/auth/login.controller';
-import { JwtStrategy } from '@app/auth/strategies/jwt.strategy';
+import { AuthenticationService } from './auth/authentication.service';
+import { LoginController } from './auth/login.controller';
+import { JwtStrategy } from './auth/strategies/jwt.strategy';
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
@@ -17,8 +17,8 @@ import { EditUserController } from './controllers/user/edit-user.controller';
 import { RegisterUserController } from './controllers/user/register-user.controller';
 import { DatabaseModule } from './database/database.module';
 import { JwtAuthGuard } from './guards/jwt.guard';
-import { GetSchedulesByUseridController } from '@app/controllers/schedule/get-schedules-by-userid.controller';
-import { GetTopUsersController } from '@app/controllers/user/get-top-users.controller';
+import { GetSchedulesByUseridController } from './controllers/schedule/get-schedules-by-userid.controller';
+import { GetTopUsersController } from './controllers/user/get-top-users.controller';
 
 @Module({
   imports: [
@@ -53,4 +53,4 @@ import { GetTopUsersController } from '@app/controllers/user/get-top-users.contr
     JwtAuthGuard
   ]
 })
-export class AppModule {}
+export class ApiModule {}

@@ -1,20 +1,25 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { CreateUserUseCase, CreateUserDTO } from '@application/in/create-user.use-case';
+import { CreateUserDTO, CreateUserUseCase } from '@application/in/create-user.use-case';
 import { UserRole, UserRoleList } from 'src/main/domain/user/user-role';
 import { IsEnum, IsNotEmpty } from 'class-validator';
-import { Public } from '@app/guards/public.guard';
+import { Public } from '@api/guards/public.guard';
+import { ApiProperty, ApiTags } from '@nestjs/swagger';
 
 class RegisterUserDTO implements CreateUserDTO {
   @IsNotEmpty()
+  @ApiProperty()
   username: string;
   @IsNotEmpty()
+  @ApiProperty()
   password: string;
   @IsEnum(UserRole, {
     message: 'Role should be one of: ' + UserRoleList.join(', ')
   })
+  @ApiProperty({ enum: UserRoleList })
   role: UserRole;
 }
 
+@ApiTags('users')
 @Controller('users')
 export class RegisterUserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}

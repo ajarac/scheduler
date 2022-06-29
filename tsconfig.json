@@ -25,7 +25,7 @@
       "@test/domain/*": ["test/main/domain/*"],
       "@test/application/*": ["./test/main/application/*"],
       "@test/infrastructure/*": ["./test/main/infrastructure"],
-      "@app/*": ["src/app/*"]
+      "@api/*": ["src/api/*"]
     }
   }
 }

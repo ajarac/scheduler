@@ -1,4 +1,4 @@
-import { UserAuth } from '@app/auth/dto/user-auth';
+import { UserAuth } from '@api/auth/dto/user-auth';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
