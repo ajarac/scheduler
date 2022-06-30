@@ -23,6 +23,7 @@ import { ScheduleNotFoundException } from '@api/exceptions/schedule-not-found.ex
 import { UserNotFoundException } from '@api/exceptions/user-not-found.exception';
 import { SchedulesAlreadyExistsException } from '@api/exceptions/schedules-already-exists.exception';
 import { GetUsersController } from '@api/controllers/user/get-users.controller';
+import { UserAlreadyExistsException } from '@api/exceptions/user-already-exists.exception';
 
 @Module({
   imports: [
@@ -65,6 +66,10 @@ import { GetUsersController } from '@api/controllers/user/get-users.controller';
     {
       provide: APP_FILTER,
       useClass: SchedulesAlreadyExistsException
+    },
+    {
+      provide: APP_FILTER,
+      useClass: UserAlreadyExistsException
     },
     AuthenticationService,
     JwtAuthGuard

@@ -8,7 +8,7 @@ export abstract class BaseException implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
 
-    response.status(HttpStatus.NOT_FOUND).json({
+    response.status(this.httpStatus).json({
       statusCode: this.httpStatus,
       message: exception.message
     });
