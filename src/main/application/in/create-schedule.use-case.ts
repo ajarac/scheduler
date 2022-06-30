@@ -11,6 +11,12 @@ export class CreateScheduleUseCase {
     private readonly scheduleStorage: ScheduleStorage
   ) {}
 
+  private static getFinishDate(workDate: Date, shiftHours: number): Date {
+    const finishDate = new Date(workDate);
+    finishDate.setHours(finishDate.getHours() + shiftHours);
+    return finishDate;
+  }
+
   async execute(userId: string, workDate: Date, shiftHours: number): Promise<void> {
     const schedulesAlreadyExists = await this.checkIfSchedulesAlreadyExists(userId, workDate, shiftHours);
     if (schedulesAlreadyExists) {
@@ -20,14 +26,8 @@ export class CreateScheduleUseCase {
     return this.save(userId, workDate, shiftHours);
   }
 
-  private getFinishDate(workDate: Date, shiftHours: number): Date {
-    const finishDate = new Date(workDate);
-    finishDate.setHours(finishDate.getHours() + shiftHours);
-    return finishDate;
-  }
-
   private async checkIfSchedulesAlreadyExists(userId: string, workDate: Date, shiftHours: number): Promise<boolean> {
-    const finishDate = this.getFinishDate(workDate, shiftHours);
+    const finishDate = CreateScheduleUseCase.getFinishDate(workDate, shiftHours);
     const schedules: Schedule[] = await this.scheduleStorage.search(userId, workDate, finishDate);
     return schedules.length > 0;
   }

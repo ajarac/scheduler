@@ -19,6 +19,6 @@ export class RangeDate {
 
   isValid(): boolean {
     const interval = Interval.fromDateTimes(this.fromDate, this.toDate);
-    return interval.isValid;
+    return interval.isValid && interval.length('year') <= 1;
   }
 }
