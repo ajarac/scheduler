@@ -11,6 +11,9 @@ export class ScheduleEntity {
   workDate: Date;
 
   @Column()
+  workEnd: Date;
+
+  @Column()
   shiftHours: number;
 
   @ManyToOne(() => UserEntity, (user) => user.schedules)

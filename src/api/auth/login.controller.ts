@@ -1,10 +1,10 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 
 import { IsNotEmpty } from 'class-validator';
 import { Public } from '../guards/public.guard';
 import { AuthenticationService } from './authentication.service';
-import { LoginToken } from './dto/login-token';
-import { ApiBearerAuth, ApiProperty, ApiTags } from '@nestjs/swagger';
+import { ApiProperty, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 
 class Credentials {
   @IsNotEmpty()
@@ -22,8 +22,13 @@ export class LoginController {
 
   @Post('login')
   @Public()
-  async login(@Body() { username, password }: Credentials): Promise<LoginToken> {
+  async login(@Body() { username, password }: Credentials, @Res() response: Response): Promise<void> {
     const userAuth = await this.authenticationService.validate(username, password);
-    return this.authenticationService.login(userAuth);
+    if (userAuth == null) {
+      response.status(HttpStatus.UNAUTHORIZED).send();
+    } else {
+      const token = this.authenticationService.login(userAuth);
+      response.status(HttpStatus.OK).json(token);
+    }
   }
 }

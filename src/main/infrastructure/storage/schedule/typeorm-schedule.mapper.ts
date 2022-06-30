@@ -9,6 +9,9 @@ export class TypeormScheduleMapper {
     const entity = new ScheduleEntity();
     entity.id = schedule.getId();
     entity.user = userEntity;
+    const workEnd = new Date(schedule.getWorkDate());
+    workEnd.setHours(workEnd.getHours() + schedule.getShiftHours());
+    entity.workEnd = workEnd;
     entity.workDate = schedule.getWorkDate();
     entity.shiftHours = schedule.getShiftHours();
     return entity;
