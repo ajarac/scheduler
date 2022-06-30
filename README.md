@@ -31,23 +31,23 @@ Implement 2 roles with different permission levels
 - Docker
 
 ## Test
-For run the test you can use:
+In order to run the tests, execute following command:
 
 `npm run test`
 
-## Run application
+## How to run the application
 There is a postman collection in `Scheduler.postman_collection.json`
 
-To be able to run the application you should have [docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose) installed
+To be able to run the application you should have [docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose) installed. Type:
 
 `docker-compose run`
 
 Add `-d` if you want to run it in background
 
-It would start the database (MariaDB) and the server
+This will start the database (MariaDB) and the application
 
 ## Environment
-There is a environment file to parameterize the system, by default:
+There is a environment file to parameterize the system, by default the following environment variables are defined:
 
 ```
 MYSQL_ROOT_PASSWORD=S3cret
@@ -65,13 +65,13 @@ I took some assumptions regarding:
 - Period of time: mandatory to put queries "from" and "to" up to 1 year of different
 - Not able to create a new schedule if another schedule match between start date and finishing the schedule
 
-## Anotations
-I had to use MariaDB because with MySQL I had some trouble using Apple Silicon M1.
+## Annotations
+I had to use MariaDB instead of MySQL because there were some issues with MySQL and Apple Silicon M1 chipset.
 
-## Future Improvement
+## Future improvements
 - Improve testing:
-  - Test Controllers
-  - Test E2E
-- Pagination
+  - Test the controllers
+  - Test E2E (Journeys)
+- Support pagination
 - Data consistency using transactions in database
 - Improve error handlers
