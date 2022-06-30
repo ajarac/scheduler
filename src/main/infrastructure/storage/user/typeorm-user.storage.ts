@@ -4,7 +4,7 @@ import { Nullable } from '@shared/types/nullable';
 import { User } from '@domain/user/user';
 import { v4 as uuidv4 } from 'uuid';
 import { UserStorage } from '@application/out/user.storage';
-import { EntityManager, LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
+import { Between, EntityManager, Repository } from 'typeorm';
 import { UserEntity } from '../entities/typeorm-user.entity';
 import { TypeormUserMapper } from './typeorm-user.mapper';
 import { Order } from '@shared/short';
@@ -57,7 +57,7 @@ export class TypeormUserStorage implements UserStorage {
       .getRepository(ScheduleEntity)
       .createQueryBuilder('schedule')
       .select(['user.id as id', 'user.username as username', 'user.role as userRole'])
-      .where({ workDate: MoreThanOrEqual(from), workEnd: LessThanOrEqual(to) })
+      .where([{ workDate: Between(from, to) }, { workEnd: Between(from, to) }])
       .addSelect('sum(schedule.shiftHours)', 'totalHours')
       .leftJoin('schedule.user', 'user')
       .groupBy('user.id')

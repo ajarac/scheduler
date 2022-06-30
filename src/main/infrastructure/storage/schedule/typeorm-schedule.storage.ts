@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { ScheduleEntity } from '../entities/typeorm-schedule.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Between, LessThanOrEqual, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { TypeormScheduleMapper } from './typeorm-schedule.mapper';
 import { Schedule } from '@domain/schedule/schedule';
@@ -34,9 +34,14 @@ export class TypeormScheduleStorage implements ScheduleStorage {
   }
 
   async search(userId: string, from: Date, to: Date): Promise<Schedule[]> {
+    const common = { user: { id: userId } };
     const query: FindManyOptions<ScheduleEntity> = {
       relations: { user: true },
-      where: { user: { id: userId }, workDate: MoreThanOrEqual(from), workEnd: LessThanOrEqual(to) }
+      where: [
+        { ...common, workDate: Between(from, to) },
+        { ...common, workEnd: Between(from, to) }
+      ],
+      order: { workDate: 'ASC' }
     };
     const entities = await this.scheduleRepository.find(query);
     return entities.map(TypeormScheduleMapper.toDomain);

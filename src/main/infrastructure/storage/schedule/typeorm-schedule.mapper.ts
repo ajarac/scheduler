@@ -11,6 +11,7 @@ export class TypeormScheduleMapper {
     entity.user = userEntity;
     const workEnd = new Date(schedule.getWorkDate());
     workEnd.setHours(workEnd.getHours() + schedule.getShiftHours());
+    workEnd.setSeconds(workEnd.getSeconds() - 1);
     entity.workEnd = workEnd;
     entity.workDate = schedule.getWorkDate();
     entity.shiftHours = schedule.getShiftHours();

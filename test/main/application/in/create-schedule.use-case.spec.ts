@@ -1,6 +1,6 @@
 import { DummyScheduleStorage } from '@test/application/out/dummy-schedule.storage';
 import { IdMother } from '@test/domain/id.mother';
-import { CreateScheduleDTO, CreateScheduleUseCase } from '@application/in/create-schedule.use-case';
+import { CreateScheduleUseCase } from '@application/in/create-schedule.use-case';
 import { ScheduleMother } from '@test/domain/schedule/schedule.mother';
 import { Schedule } from '@domain/schedule/schedule';
 import { ScheduleStorage } from '@application/out/schedule.storage';
@@ -22,32 +22,26 @@ describe('Create Schedule Use Case', () => {
 
   it('should not create schedule if there is any schedule with the same work date', async () => {
     const user = UserMother.random();
-    const createScheduleDTO = CreateScheduleDTOMother(user.getId());
-    jest.spyOn(DummyScheduleStorage.prototype, 'search').mockResolvedValue([ScheduleMother.random()]);
+    const schedule = ScheduleMother.random(user.getId());
+    jest.spyOn(DummyScheduleStorage.prototype, 'search').mockResolvedValue([schedule]);
 
-    await expect(createScheduleUseCase.execute(createScheduleDTO)).rejects.toEqual(new SchedulesAlreadyExists());
+    await expect(createScheduleUseCase.execute(schedule.getUserId(), schedule.getWorkDate(), schedule.getShiftHours())).rejects.toEqual(
+      new SchedulesAlreadyExists()
+    );
   });
 
   it('should create schedule if there is not any schedule with the same work date', async () => {
     const user = UserMother.random();
     const scheduleId = IdMother.random();
-    const createScheduleDTO = CreateScheduleDTOMother(user.getId());
+    const schedule = ScheduleMother.random(user.getId());
     jest.spyOn(DummyScheduleStorage.prototype, 'search').mockResolvedValue([]);
     const spySchedule = jest.spyOn(DummyScheduleStorage.prototype, 'create');
     jest.spyOn(DummyScheduleStorage.prototype, 'getNextId').mockImplementation(() => scheduleId);
-    const expectedToCall = new Schedule(scheduleId, createScheduleDTO.userId, createScheduleDTO.workDate, createScheduleDTO.shiftHours);
+    const expectedToCall = new Schedule(scheduleId, schedule.getUserId(), schedule.getWorkDate(), schedule.getShiftHours());
 
-    await createScheduleUseCase.execute(createScheduleDTO);
+    await createScheduleUseCase.execute(schedule.getUserId(), schedule.getWorkDate(), schedule.getShiftHours());
 
     expect(spySchedule).toBeCalledTimes(1);
     expect(spySchedule).toBeCalledWith(expectedToCall);
   });
 });
-
-function CreateScheduleDTOMother(userId: string): CreateScheduleDTO {
-  return {
-    userId,
-    workDate: ScheduleMother.workDate(),
-    shiftHours: ScheduleMother.shiftHours()
-  };
-}

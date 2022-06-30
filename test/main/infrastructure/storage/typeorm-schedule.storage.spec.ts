@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
+import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { createTestConfiguration } from './helper';
 import { EntityManager, Repository } from 'typeorm';
 import { IdMother } from '@test/domain/id.mother';
@@ -109,7 +109,7 @@ describe('Typeorm Schedule Storage', () => {
       expect(schedulesExpected.length).toBe(0);
     });
 
-    it('should return schedules from userId and range between from date and now', async () => {
+    it('should return schedules from userId and range between from date and now order by workDate', async () => {
       const user = await saveUser();
       const schedules = ScheduleMother.randomList(10, user.getId());
       for (const schedule of schedules) {
@@ -118,7 +118,7 @@ describe('Typeorm Schedule Storage', () => {
       const schedulesExpected = await scheduleStorage.search(user.getId(), ScheduleMother.yearAgo(), new Date());
 
       expect(schedulesExpected.length).toBe(10);
-      expect(schedulesExpected).toEqual(schedules);
+      expect(schedulesExpected).toEqual(schedules.sort((a, b) => a.getWorkDate().getTime() - b.getWorkDate().getTime()));
     });
   });
 
